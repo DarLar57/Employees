@@ -1,0 +1,11 @@
+CREATE DATABASE IWQ;
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    pesel VARCHAR(11) NOT NULL
+);
+
+COMMIT;

@@ -1,0 +1,28 @@
+<h1>List of Employees</h1>
+
+<p><a href="/employee/new">Add new employee</a></p>
+
+<table class="pure-table">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Address</th>
+        <th>PESEL</th>
+        <!--<th>Birth date</th>
+        <th>Sex</th>-->       
+    </tr>
+
+<?php foreach ($employees as $employee): ?>
+
+    <tr>
+        <td><?=$employee->getFirstName() ?></td>
+        <td><?=$employee->getLastName() ?></td>
+        <td><?=$employee->getAddress() ?></td>
+        <td><?=$employee->getPesel() ?></td>
+        <td>
+            <a href="<?=$router->pathFor('employee-detail', ['id' => $employee->getId()])?>">view</a>
+        </td>
+    </tr>
+
+<?php endforeach; ?>
+</table>
