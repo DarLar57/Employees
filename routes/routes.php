@@ -15,7 +15,7 @@ $app->get('/employees', function (Request $request, Response $response) {
 $app->get('/employee/new', function (Request $request, Response $response) {
     $mapper = new EmployeeMapper($this->db);
     $employees = $mapper->getEmployees();
-    $response = $this->view->render($response, "employeeadd.html", ["employees" => $employees, "router" => $this->router]);
+    $response = $this->view->render($response, "employeeadd.phtml", ["employees" => $employees, "router" => $this->router]);
     return $response;
 });
 

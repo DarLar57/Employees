@@ -51,10 +51,14 @@ class Employee
     }
 
     public function getBirthDate() {
-        return $this->birthDate;
+        $pesel = $this->getPesel();
+        $birthDate = new BirthDate($pesel);
+        return $birthDate->generateBirthDate($pesel); 
     }
     
     public function getSex() {
-        return $this->sex;
+        $pesel = $this->getPesel();
+        $sex = new Sex($pesel);
+        return $sex->generateSex($pesel); 
     }
 }

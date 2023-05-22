@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dariusz Larsen">    
+    <title>Employee Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+</head>
+<body class="bg-warning">
+    <div class="row">  
+        <header class="container text-center bg-primary text-white pb-4 p-3 fs-1">
+            New Employee
+        </header>
+    </div>
+    <div class="row p-4">
+        <form class="row g-3" method="post" action="/employee/new">
+            <div class="col-md-4">
+                <label for="first_name" class="form-label">First name</label>
+                <input type="text" class="form-control is-valid" name="first_name" id="first_name" value="Mark" required pattern="[A-Za-z]{1,}">
+            </div>
+            <div class="col-md-4">
+                <label for="last_name" class="form-label">Last name</label>
+                <input type="text" class="form-control is-valid" name="last_name" id="last_name" value="Mark" required pattern="[A-Za-z]{1,}|[A-Za-z]{1,}[-][A-Za-z]{1,}">
+            </div>
+            <div class="col-md-4">
+                <label for="address" class="form-label">Address</label>
+                <textarea type="text" class="form-control is-valid" name="address" id="address" required></textarea>
+            </div>
+            <div class="col-md-4">
+                <label for="pesel" class="form-label">PESEL</label>
+                <input type="text" class="form-control is-valid" name="pesel" id="pesel" value="75061905155" required pattern="[0-9]{11}">
+            </div>
+            <div class="col-12">
+                <button class="btn btn-success" type="submit">Submit form</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="row">  
+        <footer id="footer_add_employee" class="container text-center bg-primary text-white pt-4 p-3 fs-3">
+            <p>for IWQ</p>
+        </footer>
+    </div>
+</body>
+</html>
+
