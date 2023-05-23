@@ -9,11 +9,13 @@ class BirthDate
     protected $month;
     protected $day;
     
-    public function __construct(string $pesel) {
+    public function __construct(string $pesel)
+    {
         $this->pesel = $pesel;
     }
 
-    function generateBirthDate($pesel) {
+    function generateBirthDate($pesel): string 
+    {
         // Extract birth date information from PESEL
         $year = substr($pesel, 0, 2);
         $month = substr($pesel, 2, 2);

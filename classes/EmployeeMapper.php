@@ -2,7 +2,8 @@
 
 class EmployeeMapper extends Mapper
 {
-    public function getEmployees() {
+    public function getEmployees(): array
+    {
         $sql = "SELECT id, first_name, last_name, address, pesel
             from employees";
         $stmt = $this->db->query($sql);
@@ -15,7 +16,8 @@ class EmployeeMapper extends Mapper
         return $results;
     }
 
-    public function getEmployeeById($employee_id) {
+    public function getEmployeeById($employee_id)
+    {
         $sql = "SELECT id, first_name, last_name, address, pesel
         from employees
             where id = :employee_id";
@@ -30,7 +32,8 @@ class EmployeeMapper extends Mapper
         }
     }
 
-    public function save(Employee $employee) {
+    public function save(Employee $employee): void
+    {
         $sql = "insert into employees
             (first_name, last_name, address, pesel) values
             (:first_name, :last_name, :address, :pesel)";
@@ -48,7 +51,8 @@ class EmployeeMapper extends Mapper
         }
     }
 
-    public function delete($employee) {
+    public function delete($employee): void
+    {
         $employee_id = $employee->getId();
         $sql = "DELETE from employees
             where id = :employee_id";

@@ -7,38 +7,52 @@ $(document).ready(function(){
   });
 });
 
+function getLastDigit(number) {
+  return number % 10;
+}
+
 function validatePesel(pesel) {
     // Check if the PESEL number consists of 11 digits
-    if (!/^\d{11}$/.test(pesel)) {
-        return false;
-    }
 
     // Extract the individual digits from the PESEL
     var digits = pesel.split('').map(Number);
+    
+    var controlSum = digits[0] * 1;
+    controlSum += (digits[1] * 3) > 9 ? getLastDigit(digits[1] * 3) : (digits[1] * 3);
+    controlSum += (digits[2] * 7) > 9 ? getLastDigit(digits[2] * 7) : (digits[2] * 7);
+    controlSum += (digits[3] * 9) > 9 ? getLastDigit(digits[3] * 9) : (digits[3] * 9);
+    controlSum += digits[4] * 1;
+    controlSum += (digits[5] * 3) > 9 ? getLastDigit(digits[5] * 3) : (digits[5] * 3); 
+    controlSum += (digits[6] * 7) > 9 ? getLastDigit(digits[6] * 7) : (digits[6] * 7); 
+    controlSum += (digits[7] * 9) > 9 ? getLastDigit(digits[7] * 9) : (digits[7] * 9);
+    controlSum += (digits[8] * 1); 
+    controlSum += (digits[9] * 3) > 9 ? getLastDigit(digits[9] * 3) : (digits[9] * 3);
 
-    // Calculate the control sum based on the PESEL digits and control weights
-    var controlSum = (digits[0] * 1 + digits[1] * 3 + digits[2] * 7 + digits[3] * 9 +
-                      digits[4] * 1 + digits[5] * 3 + digits[6] * 7 + digits[7] * 9 +
-                      digits[8] * 1 + digits[9] * 3) % 10;
+    controlSum = 10 - (controlSum).substr(-1);
 
     // Compare the calculated control sum with the last digit of the PESEL
-    return controlSum === digits[10];
+    return (controlSum == digits[10]);
 }
 
-function validateAndDisplay() {
+function validatePeselAndDisplay() {
     var peselInput = document.getElementById('pesel');
     var pesel = peselInput.value;
     var peselIsValid = validatePesel(pesel);
     
-    var validationLabel = document.getElementById('validationLabel');
+    var validationLabel = document.getElementById('PeselLabel');
     if (peselIsValid) {
-        validationLabel.textContent = 'PESEL is valid.';
+        validationLabel.textContent = 'PESEL is valid.' + peselIsValid.toString();
         validationLabel.style.color = 'green';
     } else {
-        validationLabel.textContent = 'PESEL is invalid.';
+        validationLabel.textContent = 'PESEL is invalid.' + peselIsValid.toString();
         validationLabel.style.color = 'red';
     }
 }
+function changeColor(color) {
+    var paragraph = document.getElementById('PeselLabel');
+    paragraph.style.backgroundColor = color;
+}
+
 /*
 function changeGet() {
     $("#item_list").attr('method', 'get');

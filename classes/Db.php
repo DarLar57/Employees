@@ -8,7 +8,7 @@ class DB
     public const DB_PS = "";
     public const DB_NA = "iwq";
     
-    public static function getPDO()
+    public static function getPDO(): PDO
     {
         DB::$pdo = new PDO("mysql:host=" . DB::DB_HO . ";dbname=" . DB::DB_NA,
         DB::DB_US, DB::DB_PS);

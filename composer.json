@@ -1,4 +1,10 @@
 {
+    "name": "employees/employees",
+    "description": "Employees - IWQ",
+    "authors": [
+        {
+            "name": "Dariusz Larsen"
+        }],
     "require": {
         "slim/slim": "^3.1",
         "slim/php-view": "^2.0",

@@ -41,9 +41,7 @@ $app->post('/employee/new', function (Request $request, Response $response) {
         $response = $response->withRedirect('/employees');
         return $response;
     } else 
-    $response = $response->withRedirect('/employee/new');
-        return $response;
-
+        return $response->withRedirect('/employee/new');
 });
 
 $app->get('/employee/{id}', function (Request $request, Response $response, $args) {
