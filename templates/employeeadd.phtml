@@ -14,22 +14,37 @@
         </header>
     </div>
     <div class="row p-4">
-        <form class="row g-3" method="post" action="/employee/new">
+        <form class="row g-3 was-validated" method="post" action="/employee/new">
             <div class="col-md-4">
                 <label for="first_name" class="form-label">First name</label>
-                <input type="text" class="form-control is-valid" name="first_name" id="first_name" value="Mark" required pattern="[A-Za-z]{1,}">
+                <input type="text" class="form-control is-invalid form-control is-invalid" name="first_name" id="first_name" value="Adam" required pattern="[A-Za-z]{1,}|[A-Za-z]{1,}[-][A-Za-z]{1,}">
             </div>
             <div class="col-md-4">
                 <label for="last_name" class="form-label">Last name</label>
-                <input type="text" class="form-control is-valid" name="last_name" id="last_name" value="Mark" required pattern="[A-Za-z]{1,}|[A-Za-z]{1,}[-][A-Za-z]{1,}">
+                <input type="text" class="form-control is-valid" name="last_name" id="last_name" value="Kula" required pattern="[A-Za-z]{1,}|[A-Za-z]{1,}[-][A-Za-z]{1,}">
             </div>
-            <div class="col-md-4">
+            <!--<div class="col-md-4">
                 <label for="address" class="form-label">Address</label>
                 <textarea type="text" class="form-control is-valid" name="address" id="address" required></textarea>
+            </div> -->
+            <div class="row">
+            <div class="col-md-4 ps-4 pt-4 pb-0">
+            <fieldset>
+                <legend>Address</legend>
+                <label for="town_or_village">Town / Village</label><br>
+                <input type="text" class="form-control is-valid" id="town_or_village" name="town_or_village" value="Warsaw" required pattern="[A-Za-z]{1,}"><br>
+                <label for="post_code">Post-code (xx-xxx)</label><br>
+                <input type="text" class="form-control is-valid" id="post_code" name="post_code" value="12-345" required pattern="[0-9]{2}[-][0-9]{3}"><br>
+                <label for="street">Street</label><br>
+                <input type="text" class="form-control is-valid" id="street" name="street" value="Akacjowa" required><br>
+                <label for="number">Number (building / apartment)</label><br>
+                <input type="text" class="form-control is-valid" id="number" name="number" value="1/2" required><br><br>
+            </fieldset>
+            </div>
             </div>
             <div class="col-md-4">
-                <label for="pesel" class="form-label">PESEL</label>
-                <input type="text" class="form-control is-valid" name="pesel" id="pesel" value="75061905155" required pattern="[0-9]{11}">
+                <label for="pesel" class="form-label">PESEL (11 digits)</label>
+                <input type="text" class="form-control is-valid" name="pesel" id="pesel" value="02070803628" required pattern="[0-9]{11}">
             </div>
             <div class="col-12">
                 <button class="btn btn-success" type="submit">Submit form</button>
@@ -38,7 +53,7 @@
     </div>
     
     <div class="row">  
-        <footer id="footer_add_employee" class="container text-center bg-primary text-white pt-4 p-3 fs-3">
+        <footer class="container text-center bg-primary text-white pt-4 p-3 fs-3">
             <p>for IWQ</p>
         </footer>
     </div>

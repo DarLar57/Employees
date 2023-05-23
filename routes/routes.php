@@ -24,7 +24,13 @@ $app->post('/employee/new', function (Request $request, Response $response) {
     $employee_data = [];
     $employee_data['first_name'] = htmlspecialchars($data['first_name']);
     $employee_data['last_name'] = htmlspecialchars($data['last_name']);
-    $employee_data['address'] = htmlspecialchars($data['address']);
+    $employee_address = [];
+    $employee_address['street'] = htmlspecialchars($data['street']);
+    $employee_address['number'] = htmlspecialchars($data['number']);
+    $employee_address['post_code'] = htmlspecialchars($data['post_code']);
+    $employee_address['town_or_village'] = htmlspecialchars($data['town_or_village']);
+    //$employeeAddress = new Address ($employee_address);
+    $employee_data['address'] = $employee_address;
     $employee_data['pesel'] = htmlspecialchars($data['pesel']);
 
     $employee = new Employee($employee_data);
@@ -43,3 +49,16 @@ $app->get('/employee/{id}', function (Request $request, Response $response, $arg
     $response = $this->view->render($response, "employeedetail.phtml", ["employee" => $employee, "router" => $this->router]);
     return $response;
 })->setName('employee-detail');
+
+
+$app->post('/employees', function (Request $request, Response $response) {
+    $data = $request->getParsedBody();
+    $this->logger->addInfo("Employee deleted");
+    $employee_id = [];
+    $employee_id = htmlspecialchars($data['selection']);
+    $mapper = new EmployeeMapper($this->db);
+    $employee = $mapper->getEmployeeById($employee_id);
+    $mapper->delete($employee);
+    $response = $response->withRedirect('/employees');
+    return $response;
+})->setName('employee-delete');

@@ -5,7 +5,12 @@ class Employee
     protected $id;
     protected $firstName;
     protected $lastName;
-    protected $address;
+    protected array $address;
+    //public Address $employeeAddress;
+    protected $townOrVillage;
+    protected $postCode;
+    protected $street;
+    protected $number;
     protected $pesel;
     protected $birthDate;
     protected $sex;
@@ -16,7 +21,7 @@ class Employee
      *
      * @param array $data The data to use to create
      */
-    public function __construct(array $data) {
+    public function __construct(array $data /*, Address $employeeAddress*/) {
         // no id if we're creating
         if(isset($data['id'])) {
             $this->id = $data['id'];
@@ -26,8 +31,10 @@ class Employee
         $this->lastName = $data['last_name'];
         $this->address = $data['address'];
         $this->pesel = $data['pesel'];
-        //$this->birthDate = $data['birthDate'];
-        //$this->sex = $data['sex'];
+        $this->street = $data['address'][0];
+        $this->number = $data['address'][1];
+        $this->postCode = $data['address'][2];
+        $this->townOrVillage = $data['address'][3];      
     }
 
     public function getId() {
@@ -43,11 +50,28 @@ class Employee
     }
 
     public function getAddress() {
-        return $this->address;
+        $addressString = preg_replace('/,/', ' ', implode(", ", $this->address), 0);
+        return $addressString;
+    }
+
+    public function getTownOrVillage() {
+        return $this->townOrVillage;
+    }
+
+    public function getPostCode() {
+        return $this->postCode;
     }
 
     public function getPesel() {
         return $this->pesel;
+    }
+
+    public function getStreet() {
+        return $this->street;
+    }
+
+    public function getNumber() {
+        return $this->number;
     }
 
     public function getBirthDate() {

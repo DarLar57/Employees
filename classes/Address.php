@@ -5,16 +5,14 @@ class Address
     protected $townOrVillage;
     protected $postCode;
     protected $street;
-    protected $buildingNumber;
-    protected $apartmentNumber;
+    protected $number;
 
     public function __construct(array $data) {
 
         $this->townOrVillage = $data['town_or_village'];
         $this->postCode = $data['post_code'];
         $this->street = $data['street'];
-        $this->buildingNumber = $data['building_number'];
-        $this->apartmentNumber = $data['apartment_number'];
+        $this->number = $data['number'];
     }
 
     public function getTownOrVillage() {
@@ -29,11 +27,7 @@ class Address
         return $this->street;
     }
 
-    public function getBuildingNumber() {
-        return $this->buildingNumber;
-    }
-
-    public function getApartmentNumber() {
-        return $this->apartmentNumber;
+    public function getNumber() {
+        return $this->number;
     }
 }

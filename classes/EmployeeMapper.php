@@ -9,6 +9,7 @@ class EmployeeMapper extends Mapper
 
         $results = [];
         while($row = $stmt->fetch()) {
+            $row['address'] = explode(",", $row['address']);
             $results[] = new Employee($row);
         }
         return $results;
@@ -22,9 +23,11 @@ class EmployeeMapper extends Mapper
         $result = $stmt->execute(["employee_id" => $employee_id]);
 
         if($result) {
-            return new Employee($stmt->fetch());
+            $row = $stmt->fetch();
+            $row['address'] = explode(",", $row['address']);
+                      
+            return new Employee($row);
         }
-
     }
 
     public function save(Employee $employee) {
@@ -43,5 +46,13 @@ class EmployeeMapper extends Mapper
         if(!$result) {
             throw new Exception("could not save record");
         }
+    }
+
+    public function delete($employee) {
+        $employee_id = $employee->getId();
+        $sql = "DELETE from employees
+            where id = :employee_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(["employee_id" => $employee_id]);
     }
 }
