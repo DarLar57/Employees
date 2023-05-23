@@ -33,25 +33,37 @@ $app->post('/employee/new', function (Request $request, Response $response) {
     $employee_data['address'] = $employee_address;
     $employee_data['pesel'] = htmlspecialchars($data['pesel']);
 
-    $employee = new Employee($employee_data);
-    $employee_mapper = new EmployeeMapper($this->db);
-    $employee_mapper->save($employee);
+    $validatePesel = new ValidatePesel ($employee_data['pesel']);
+    if ($validatePesel->validatePesel($employee_data['pesel'])) {
+        $employee = new Employee($employee_data);
+        $employee_mapper = new EmployeeMapper($this->db);
+        $employee_mapper->save($employee);
+        $response = $response->withRedirect('/employees');
+        return $response;
+    } else 
+    $response = $response->withRedirect('/employee/new');
+        return $response;
 
-    $response = $response->withRedirect('/employees');
-    return $response;
 });
 
 $app->get('/employee/{id}', function (Request $request, Response $response, $args) {
     $employee_id = (int)$args['id'];
     $mapper = new EmployeeMapper($this->db);
     $employee = $mapper->getEmployeeById($employee_id);
-
     $response = $this->view->render($response, "employeedetail.phtml", ["employee" => $employee, "router" => $this->router]);
     return $response;
 })->setName('employee-detail');
 
+$app->post('/employee/{id}', function (Request $request, Response $response, $args) {
+    $employee_id = (int)$args['id'];
+    $mapper = new EmployeeMapper($this->db);
+    $employee = $mapper->getEmployeeById($employee_id);
+    $response = $this->view->render($response, "employeemodify.phtml", ["employee" => $employee, "router" => $this->router]);
+    return $response;
+})->setName('employee-modify');
 
 $app->post('/employees', function (Request $request, Response $response) {
+   
     $data = $request->getParsedBody();
     $this->logger->addInfo("Employee deleted");
     $employee_id = [];
@@ -62,3 +74,17 @@ $app->post('/employees', function (Request $request, Response $response) {
     $response = $response->withRedirect('/employees');
     return $response;
 })->setName('employee-delete');
+
+/*
+$app->post('/employees', function (Request $request, Response $response) {
+    $data = $request->getParsedBody();
+    $this->logger->addInfo("Employee deleted");
+    $employee_id = [];
+    $employee_id = htmlspecialchars($data['selection']);
+    $mapper = new EmployeeMapper($this->db);
+    $employee = $mapper->getEmployeeById($employee_id);
+    $mapper->modify($employee);
+    $response = $response->withRedirect('/employees');
+    return $response;
+})->setName('employee-modify');
+*/
