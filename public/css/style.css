@@ -14,3 +14,6 @@ a {
     align-items: center;
     vertical-align: baseline;
 }
+button, input[type="text"] {
+    box-shadow: 3px 3px 8px black;  
+}

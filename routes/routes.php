@@ -48,17 +48,19 @@ $app->get('/employee/{id}', function (Request $request, Response $response, $arg
     $employee_id = (int)$args['id'];
     $mapper = new EmployeeMapper($this->db);
     $employee = $mapper->getEmployeeById($employee_id);
-    $response = $this->view->render($response, "employeedetail.phtml", ["employee" => $employee, "router" => $this->router]);
-    return $response;
-})->setName('employee-detail');
-
-$app->post('/employee/{id}', function (Request $request, Response $response, $args) {
-    $employee_id = (int)$args['id'];
-    $mapper = new EmployeeMapper($this->db);
-    $employee = $mapper->getEmployeeById($employee_id);
     $response = $this->view->render($response, "employeemodify.phtml", ["employee" => $employee, "router" => $this->router]);
     return $response;
 })->setName('employee-modify');
+
+/*
+$app->get('/employee/{id}', function (Request $request, Response $response, $args) {
+    $employee_id = (int)$args['id'];
+    $mapper = new EmployeeMapper($this->db);
+    $employee = $mapper->getEmployeeById($employee_id);
+    $response = $this->view->render($response, "employeedetail.phtml", ["employee" => $employee, "router" => $this->router]);
+    return $response;
+})->setName('employee-detail');
+*/
 
 $app->post('/employees', function (Request $request, Response $response) {
    

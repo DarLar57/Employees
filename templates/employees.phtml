@@ -17,7 +17,7 @@
     </div>
     <div class="row p-4">
         <div>
-            <button type="button" class="btn btn-success"><a style="text-decoration: none; color: white;" href="/employee/new">Add new employee</a></button>
+            <button type="button" class="btn btn-success" oninput="checkInputs()"><a style="text-decoration: none; color: white;" href="/employee/new">Add new employee</a></button>
         </div>
         <div class="row p-5">
         <form id="item_list" method="post">
@@ -35,8 +35,7 @@
                 <th>Birth date</th>
                 <th>Sex</th>
                 <th>
-                <button type="submit" class="btn btn-danger" id="delete_btn">delete</button>
-                <button type="button" class="btn btn-secondary">Modify</button>
+                <button type="submit" id="deleteButton" class="btn btn-danger" id="delete_btn" disabled>delete</button>
                 </th>    
             </tr>
 <?php foreach ($employees as $employee)  { $i = 0 ?>
@@ -49,10 +48,10 @@
                 <td><?=$employee->getBirthDate() ?></td>
                 <td><?=$employee->getSex() ?></td>
                 <td>
-                <input type="radio" class="ms-4" name="selection" id="<?= $employee->getId() ?>" value="<?= $employee->getId() ?>">
+                <input type="radio" class="ms-4" name="selection" id="<?= $employee->getId() ?>" value="<?= $employee->getId() ?>" onchange="checkRadioSelection()">
                 </td>
                 <td>
-                <button type="submit" class="btn btn-info"><a href="<?=$router->pathFor('employee-detail', ['id' => $employee->getId()])?>">Details</a></button>
+                <button type="submit" class="btn btn-secondary"><a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>">Modify</a></button>
 
                 </td>
             </tr>

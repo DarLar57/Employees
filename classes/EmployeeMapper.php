@@ -59,4 +59,28 @@ class EmployeeMapper extends Mapper
         $stmt = $this->db->prepare($sql);
         $stmt->execute(["employee_id" => $employee_id]);
     }
+
+    public function modify(Employee $employee): void
+    {
+        $sql = "update employees
+            set 
+                first_name = :first_name,
+                last_name = :last_name, 
+                address = 'ab, cd, ef, gf',
+                pesel = :pesel
+            where id = :employee_id";
+
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute([
+            "first_name" => $employee->getFirstName(),
+            "last_name" => $employee->getLastName(),
+            "address" => $employee->getAddress(),
+            "pesel" => $employee->getPesel(),
+            "employee_id" => $employee->getId(),
+        ]);
+
+        if(!$result) {
+            throw new Exception("could not modify record");
+        }
+    }
 }

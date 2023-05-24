@@ -53,6 +53,20 @@ function changeColor(color) {
     paragraph.style.backgroundColor = color;
 }
 
+function checkRadioSelection() {
+  var formRadio = document.querySelectorAll('form input[type="radio"]');
+  var button = document.getElementById('deleteButton');
+  var isRadioSelected = false;
+
+  for (var i = 0; i < formRadio.length; i++) {
+    if (formRadio[i].checked) {
+      isRadioSelected = true;
+      break;
+    }
+  }
+  button.disabled = !isRadioSelected;
+}
+
 /*
 function changeGet() {
     $("#item_list").attr('method', 'get');
