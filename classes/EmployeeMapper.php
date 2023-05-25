@@ -66,7 +66,7 @@ class EmployeeMapper extends Mapper
             set 
                 first_name = :first_name,
                 last_name = :last_name, 
-                address = 'ab, cd, ef, gf',
+                address = :address,
                 pesel = :pesel
             where id = :employee_id";
 
