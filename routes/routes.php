@@ -20,7 +20,7 @@ $app->post('/employees', function (Request $request, Response $response)
     $mapper = new EmployeeMapper($this->db);
     $employee = $mapper->getEmployeeById($employee_id);
     $mapper->delete($employee);
-    $response = $response->withRedirect('/employees');
+    $response = $response->withHeader('Location','/employees');
     $this->logger->addInfo("Employee deleted");
     return $response;
 })->setName('employee-delete');
@@ -53,10 +53,10 @@ $app->post('/employee/new', function (Request $request, Response $response)
         $employee = new Employee($employee_data);
         $employee_mapper = new EmployeeMapper($this->db);
         $employee_mapper->save($employee);
-        $response = $response->withRedirect('/employees');
+        $response = $response->withHeader('Location','/employees');
         return $response;
     } else 
-        return $response->withRedirect('/employee/new');
+        return $response->withHeader('Location','/employee/new');
 });
 
 $app->post('/employee/update', function (Request $request, Response $response)
@@ -79,10 +79,10 @@ $app->post('/employee/update', function (Request $request, Response $response)
         $employee = new Employee($employee_data);
         $employee_mapper = new EmployeeMapper($this->db);
         $employee_mapper->modify($employee);
-        $response = $response->withRedirect('/employees');
+        $response = $response->withHeader('Location','/employees');
         return $response;
     } else 
-        return $response->withRedirect('/employee/new');
+        return $response->withHeader('Location','/employee/update');
 });
 
 $app->get('/employee/{id}', function (Request $request, Response $response, $args)

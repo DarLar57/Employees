@@ -34,6 +34,7 @@ class EmployeeMapper extends Mapper
 
     public function save(Employee $employee): void
     {
+        if (!$this->isPeselRegistered($employee)) {
         $sql = "insert into employees
             (first_name, last_name, address, pesel) values
             (:first_name, :last_name, :address, :pesel)";
@@ -45,8 +46,7 @@ class EmployeeMapper extends Mapper
             "address" => $employee->getAddress(),
             "pesel" => $employee->getPesel(),
         ]);
-
-        if(!$result) {
+        } else {
             throw new Exception("could not save record");
         }
     }
@@ -60,15 +60,17 @@ class EmployeeMapper extends Mapper
         $stmt->execute(["employee_id" => $employee_id]);
     }
 
-    public function modify(Employee $employee): void
+    public function modify(Employee $employee)
     {
+        if (!$this->isPeselRegistered($employee)) {
         $sql = "update employees
             set 
                 first_name = :first_name,
                 last_name = :last_name, 
                 address = :address,
                 pesel = :pesel
-            where id = :employee_id";
+            where 
+                id = :employee_id";
 
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute([
@@ -78,9 +80,20 @@ class EmployeeMapper extends Mapper
             "pesel" => $employee->getPesel(),
             "employee_id" => $employee->getId(),
         ]);
-
-        if(!$result) {
-            throw new Exception("could not modify record");
         }
     }
+
+    public function isPeselRegistered($employee)
+    {
+        $sql = "SELECT * FROM employees
+            WHERE pesel = :pesel";
+
+        $stmt = $this->db->prepare($sql);
+        $pesel = $employee->getPesel();
+        $stmt->bindParam(':pesel', $pesel);
+        $stmt->execute();   
+        if (($stmt->rowCount()) > 0) {
+            return true;
+        } else return false;
+    }    
 }
