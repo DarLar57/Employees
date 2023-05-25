@@ -1,7 +1,18 @@
 <?php
 
-class EmployeeMapper extends Mapper
+namespace Models;
+
+use \Models\Employee;
+
+class DbOperations
 {
+protected $db;
+
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
     public function getEmployees(): array
     {
         $sql = "SELECT id, first_name, last_name, address, pesel
@@ -47,7 +58,8 @@ class EmployeeMapper extends Mapper
             "pesel" => $employee->getPesel(),
         ]);
         } else {
-            throw new Exception("could not save record");
+            //throw new Exception("could not save record");
+            header('Location: /employee/new');
         }
     }
 
@@ -80,9 +92,7 @@ class EmployeeMapper extends Mapper
             "pesel" => $employee->getPesel(),
             "employee_id" => $employee->getId(),
         ]); 
-        } else {
-            throw new Exception("could not modify record");
-        }
+        } else return "upsss";
     }
 
     public function isPeselRegistered($employee)

@@ -16,10 +16,10 @@
         </header>
     </div>
     <div class="row p-4">
-        <form class="row g-3 was-validated" method="post" action="/employee/update">
+        <form id="myForm" class="row g-3 was-validated" method="post" action="/employee/update">
             <div class="col-md-4">
                 <label for="first_name" class="form-label">First name</label>
-                <input type="text" class="form-control" name="first_name" id="first_name" value="<?=$employee->getFirstName() ?>" required pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-\s]+$|[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$">
+                <input type="text" class="form-control" name="first_name" id="first_name" value="<?= $employee->getFirstName() ?>" required pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-\s]+$|[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$">
             </div>
             <div class="col-md-4">
                 <label for="last_name" class="form-label">Last name</label>
@@ -50,6 +50,9 @@
             </div>
             <div class="col-12">
                 <button class="btn btn-success" type="submit">Submit form</button>
+            </div>
+            <div class="col-12 mt-5 ps-5">
+                <button class="btn btn-primary btn-lg" type="reset" onclick="reset" ><a href=\employees>Go to Employee List</button>
             </div>
         </form>
     </div>

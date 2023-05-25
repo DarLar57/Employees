@@ -1,5 +1,7 @@
 <?php
 
+namespace Models;
+
 class Sex
 {
     protected $pesel;

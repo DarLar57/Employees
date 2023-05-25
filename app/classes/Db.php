@@ -1,5 +1,9 @@
 <?php
 
+namespace Models;
+
+use PDO;
+
 class DB
 {
     public static $pdo;
@@ -14,6 +18,7 @@ class DB
         DB::DB_US, DB::DB_PS);
         DB::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         DB::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        
         return DB::$pdo;
     }
 }

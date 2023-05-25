@@ -1,5 +1,7 @@
 <?php
 
+namespace Models;
+
 class ValidatePesel
 {
     protected $pesel;
