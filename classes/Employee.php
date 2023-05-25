@@ -32,10 +32,10 @@ class Employee
         $this->lastName = $data['last_name'];
         $this->address = $data['address'];
         $this->pesel = $data['pesel'];
-        $this->street = $data['address'][0];
-        $this->number = $data['address'][1];
-        $this->postCode = $data['address'][2];
-        $this->townOrVillage = $data['address'][3];      
+        $this->street = $data['address']['street'] ?? $data['address'][0];
+        $this->number = $data['address']['number'] ?? $data['address'][1];
+        $this->postCode = $data['address']['post_code'] ?? $data['address'][2];
+        $this->townOrVillage = $data['address']['town_or_village'] ?? $data['address'][3];      
     }
 
     public function getId(): string 

@@ -78,9 +78,10 @@ $app->post('/employee/update', function (Request $request, Response $response)
     if ($validatePesel->validatePesel($employee_data['pesel'])) {
         $employee = new Employee($employee_data);
         $employee_mapper = new EmployeeMapper($this->db);
+        if (!$employee_mapper->isPeselRegistered($employee)) {
         $employee_mapper->modify($employee);
         $response = $response->withHeader('Location','/employees');
-        return $response;
+        return $response;}
     } else 
         return $response->withHeader('Location','/employee/update');
 });

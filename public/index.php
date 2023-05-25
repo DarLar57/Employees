@@ -3,7 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 $config['displayErrorDetails'] = true;
-
+  
 $app = new \Slim\App(["settings" => $config]);
 
 $container = $app->getContainer();
@@ -18,6 +18,14 @@ $container['logger'] = function($c) {
 };
 
 $container['db'] = DB::getPDO();
+
+$container['errorHandler'] = function ($c) {
+    return function ($request, $response, $exception) use ($c) {
+        return $response->withStatus(500)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Something went wrong!');
+    };
+};
 
 require __DIR__ . "/../routes/routes.php";
 

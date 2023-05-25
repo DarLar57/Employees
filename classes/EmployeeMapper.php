@@ -79,7 +79,9 @@ class EmployeeMapper extends Mapper
             "address" => $employee->getAddress(),
             "pesel" => $employee->getPesel(),
             "employee_id" => $employee->getId(),
-        ]);
+        ]); 
+        } else {
+            throw new Exception("could not modify record");
         }
     }
 
