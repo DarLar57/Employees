@@ -58,7 +58,6 @@ protected $db;
             "pesel" => $employee->getPesel(),
         ]);
         } else {
-            //throw new Exception("could not save record");
             header('Location: /employee/new');
         }
     }
@@ -74,7 +73,6 @@ protected $db;
 
     public function modify(Employee $employee)
     {
-        if (!$this->isPeselRegistered($employee)) {
         $sql = "update employees
             set 
                 first_name = :first_name,
@@ -92,7 +90,6 @@ protected $db;
             "pesel" => $employee->getPesel(),
             "employee_id" => $employee->getId(),
         ]); 
-        } else return "upsss";
     }
 
     public function isPeselRegistered($employee)

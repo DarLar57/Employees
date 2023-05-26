@@ -35,6 +35,7 @@ class ValidatePesel
         // OPTION 2 - Control based on the PESEL digits and control weights (%)
         $controlSum = $digits[0] * 1 + (($digits[1] * 3) > 9 ? $this->getLastDigit(($digits[1] * 3)) : ($digits[1] * 3)) + (($digits[2] * 7) > 9 ? $this->getLastDigit(($digits[2] * 7)) : ($digits[2] * 7)) + (($digits[3] * 9) > 9 ? $this->getLastDigit(($digits[3] * 9)) : ($digits[3] * 9)) + ($digits[4] * 1) + (($digits[5] * 3) > 9 ? $this->getLastDigit(($digits[5] * 3)) : ($digits[5] * 3)) + (($digits[6] * 7) > 9 ? $this->getLastDigit(($digits[6] * 7)) : ($digits[6] * 7)) + (($digits[7] * 9) > 9 ? $this->getLastDigit(($digits[7] * 9)) : ($digits[7] * 9)) +
         ($digits[8] * 1) + (($digits[9] * 3) > 9 ? $this->getLastDigit(($digits[9] * 3)) : ($digits[9] * 3));
+        
         $controlSum = 10 - $this->getLastDigit($controlSum);
 
         return ($controlSum == $digits[10]);

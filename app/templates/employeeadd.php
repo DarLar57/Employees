@@ -1,3 +1,9 @@
+<?php
+
+include __DIR__ . '/../common/header.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +22,7 @@
         </header>
     </div>
     <div class="row p-4">
-        <form class="row g-3 was-validated" method="post" action="/employee/new">
+        <form id="new_employee_form" class="row g-3 was-validated" method="post" action="/employee/new">
             <div class="col-md-4">
                 <label for="first_name" class="form-label">First name</label>
                 <input type="text" class="form-control" name="first_name" id="first_name" value="Adam" required pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-\s]+$|[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$">
@@ -42,22 +48,20 @@
             </div>
             <div class="col-md-4">
                 <label id="PeselLabel" for="pesel" class="form-label">PESEL (11 digits)</label>
-                <input type="text" class="form-control" name="pesel" id="pesel" value="75061905155" required pattern="[0-9]{11}" onclick="validatePeselAndDisplay()">
+                <input type="text" class="form-control" name="pesel" id="pesel" value="65030311274" onchange="validatePeselAndDisplay()" onkeyup="validatePeselAndDisplay()" required pattern="[0-9]{11}">
             </div>
             <div class="col-12">
-                <button class="btn btn-success" type="submit">Submit form</button>
+                <button class="btn btn-success" id="submit_new" type="submit">Submit form</button>
             </div>
             <div class="col-12 mt-5 ps-5">
-                <button class="btn btn-primary btn-lg" type="submit"><a href=\employees>Go to Employee List</button>
+                <button  class="btn btn-primary btn-lg" type="submit"><a href=\employees>Go to Employee List</button>
             </div>
         </form>
     </div>
-    
-    <div id="footer_add_employee" class="row">  
-        <footer class="container text-center bg-primary text-white pt-4 p-3 fs-3">
-            <p>for IWQ</p>
-        </footer>
-    </div>
-</body>
-</html>
+
+<?php
+
+include __DIR__ . '/../common/footer.php';
+
+?>
 

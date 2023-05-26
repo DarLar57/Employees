@@ -12,8 +12,6 @@ function getLastDigit(number) {
 }
 
 function validatePesel(pesel) {
-    // Check if the PESEL number consists of 11 digits
-
     // Extract the individual digits from the PESEL
     var digits = pesel.split('').map(Number);
     
@@ -28,7 +26,7 @@ function validatePesel(pesel) {
     controlSum += (digits[8] * 1); 
     controlSum += (digits[9] * 3) > 9 ? getLastDigit(digits[9] * 3) : (digits[9] * 3);
 
-    controlSum = 10 - (controlSum).substr(-1);
+    controlSum = 10 - getLastDigit(controlSum);
 
     // Compare the calculated control sum with the last digit of the PESEL
     return (controlSum == digits[10]);
@@ -41,10 +39,10 @@ function validatePeselAndDisplay() {
     
     var validationLabel = document.getElementById('PeselLabel');
     if (peselIsValid) {
-        validationLabel.textContent = 'PESEL is valid.' + peselIsValid.toString();
+        validationLabel.textContent = 'PESEL is valid.';
         validationLabel.style.color = 'green';
     } else {
-        validationLabel.textContent = 'PESEL is invalid.' + peselIsValid.toString();
+        validationLabel.textContent = 'PESEL is invalid.';
         validationLabel.style.color = 'red';
     }
 }
@@ -66,37 +64,54 @@ function checkRadioSelection() {
   }
   button.disabled = !isRadioSelected;
 }
+// for new employee submission
+$(document).ready(function() {
+  $('#new_employee_form').submit(function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-/*
-function changeGet() {
-    $("#item_list").attr('method', 'get');
-}
-*/
-/*
-$(document).ready(function($) {
-    $(document).on('submit', '#delete_btn', function(event) {
-      event.preventDefault();
-    
-      alert('page did not reload');
+    var formData = $(this).serialize();
+
+    // AJAX request
+    $.ajax({
+      url: '/employee/new',
+      type: 'POST',
+      data: formData,
+      success: function(response) {
+        
+        var peselInput = document.getElementById('pesel');
+        var pesel = peselInput.value;
+
+        if (validatePesel(pesel)) {
+          window.location.href = '/employees';
+        } 
+      }
     });
   });
+});
 
-  $( "a" ).on( "click", function( event ) {
-    event.preventDefault();
-    $( "<div>" )
-      .append( "default " + event.type + " prevented" )
-      .appendTo( "#log" );
+// for updating employee - submission
+/*$(document).ready(function() {
+  $('#modify_employee_form').submit(function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var formData = $(this).serialize();
+    var employeeId = document.getElementById('id');
+    var id = employeeId.value;
+    // AJAX request
+    $.ajax({
+      url: '/employee/update',
+      type: 'POST',
+      data: formData,
+      success: function(response) {
+        
+        var peselInput = document.getElementById('pesel');
+        var pesel = peselInput.value;
+
+        if (validatePesel(pesel)) {
+          window.location.href = '/employees';
+        } 
+      }
+    });
   });
-  */
-  /*function changeMethodAndSubmit(event) {
-    event.preventDefault(); // Prevent the form from submitting
-    
-    var form = document.getElementById("item_list");
-    form.method = "delete"; // Change the form's method attribute to GET
-    alert('page did not reload');
-    // Now you can perform any additional processing or validation before submitting the form
-    // ...
-
-    form.submit();
-  }
-  */
+});
+*/

@@ -17,6 +17,7 @@ class Employee
     protected $birthDate;
     protected $sex;
 
+
     public function __construct(array $data) 
     {
         // no id if we're creating

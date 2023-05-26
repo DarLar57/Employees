@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Dariusz Larsen">    
-    <title>Employee Application</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="/js/script.js"></script>
-</head>
+<?php
+
+include __DIR__ . '/../common/header.php';
+
+?>
+
 <body class="bg-warning">
     <div class="row">  
         <header class="container text-center bg-primary text-white pb-4 p-3 fs-1">
@@ -16,7 +11,7 @@
         </header>
     </div>
     <div class="row p-4">
-        <form id="myForm" class="row g-3 was-validated" method="post" action="/employee/update">
+        <form id="modify_employee_form" class="row g-3 was-validated" method="post" action="/employee/update">
             <div class="col-md-4">
                 <label for="first_name" class="form-label">First name</label>
                 <input type="text" class="form-control" name="first_name" id="first_name" value="<?= $employee->getFirstName() ?>" required pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-\s]+$|[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$">
@@ -46,22 +41,20 @@
             </div>
             <div class="col-md-4">
                 <label id="PeselLabel" for="pesel" class="form-label">PESEL (11 digits)</label>
-                <input type="text" class="form-control" name="pesel" id="pesel" value="<?=$employee->getPesel() ?>" required pattern="[0-9]{11}" onclick="validatePeselAndDisplay()">
+                <input type="text" class="form-control" name="pesel" id="pesel" value="<?=ltrim($employee->getPesel()) ?>" required pattern="[0-9]{11}" onchange="validatePeselAndDisplay()" onkeyup="validatePeselAndDisplay()">
             </div>
             <div class="col-12">
-                <button class="btn btn-success" type="submit">Submit form</button>
+                <button class="btn btn-success" id="submit_update" type="submit">Submit form</button>
             </div>
             <div class="col-12 mt-5 ps-5">
-                <button class="btn btn-primary btn-lg" type="reset" onclick="reset" ><a href=\employees>Go to Employee List</button>
+                <button class="btn btn-primary btn-lg" type="submit"><a href=\employees>Go to Employee List</button>
             </div>
         </form>
     </div>
     
-    <div id="footer_add_employee" class="row">  
-        <footer class="container text-center bg-primary text-white pt-4 p-3 fs-3">
-            <p>for IWQ</p>
-        </footer>
-    </div>
-</body>
-</html>
+<?php
+
+include __DIR__ . '/../common/footer.php';
+
+?>
 

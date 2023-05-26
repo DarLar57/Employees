@@ -10,7 +10,7 @@ $app->get('/employees', function (Request $request, Response $response)
 {
     $mapper = new DbOperations($this->db);
     $employees = $mapper->getEmployees();
-    $response = $this->view->render($response, "employees.phtml", ["employees" => $employees, "router" => $this->router]);
+    $response = $this->view->render($response, "employees.php", ["employees" => $employees, "router" => $this->router]);
     $this->logger->addInfo("Employee list");
 
     return $response;
@@ -38,7 +38,7 @@ $app->get('/employee/new', function (Request $request, Response $response)
     $mapper = new DbOperations($this->db);
 
     $employees = $mapper->getEmployees();
-    $response = $this->view->render($response, "employeeadd.phtml", ["employees" => $employees, "router" => $this->router]);
+    $response = $this->view->render($response, "employeeadd.php", ["employees" => $employees, "router" => $this->router]);
     $this->logger->addInfo("get the site for Employee adding");
 
     return $response;
@@ -65,14 +65,17 @@ $app->post('/employee/new', function (Request $request, Response $response)
 
     $this->logger->addInfo("Employee adding");
     
-    $employee = new Employee($employee_data);
+    if ($validatePesel->validatePesel($employee_data['pesel'])) {
 
-    $employee_mapper = new DbOperations($this->db);
+        $employee = new Employee($employee_data);
 
-    $employee_mapper->save($employee);
-    $response = $response->withHeader('Location','/employees');
+        $employee_mapper = new DbOperations($this->db);
+
+        $employee_mapper->save($employee);
+        $response = $response->withHeader('Location','/employees');
         
-    return $response;
+        return $response;
+    } else { return $this->view->render($response, "error.php", ["router" => $this->router]);}
 });
 
 $app->post('/employee/update', function (Request $request, Response $response)
@@ -97,14 +100,17 @@ $app->post('/employee/update', function (Request $request, Response $response)
 
     $this->logger->addInfo("Employee updating");
 
-    $employee = new Employee($employee_data);
+    if ($validatePesel->validatePesel($employee_data['pesel'])) {
 
-    $employee_mapper = new DbOperations($this->db);
+        $employee = new Employee($employee_data);
+
+        $employee_mapper = new DbOperations($this->db);
     
-    $employee_mapper->modify($employee);
-    $response = $response->withHeader('Location','/employees');
+        $employee_mapper->modify($employee);
+        $response = $response->withHeader('Location','/employees');
     
-    return $response;
+        return $response;
+    } else { return $this->view->render($response, "error.php", ["router" => $this->router]);}
 });
 
 $app->get('/employee/{id}', function (Request $request, Response $response, $args)
@@ -114,7 +120,7 @@ $app->get('/employee/{id}', function (Request $request, Response $response, $arg
     $mapper = new DbOperations($this->db);
     
     $employee = $mapper->getEmployeeById($employee_id);
-    $response = $this->view->render($response, "employeemodify.phtml", ["employee" => $employee, "router" => $this->router]);
+    $response = $this->view->render($response, "employeemodify.php", ["employee" => $employee, "router" => $this->router]);
     $this->logger->addInfo("getting Employee site to update");
 
     return $response;

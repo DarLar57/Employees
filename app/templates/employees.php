@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="author" content="Dariusz Larsen">    
-    <title>Employee Application</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="/css/style.css" type="text/css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="/js/script.js"></script>
-</head>
+<?php
+
+include __DIR__ . '/../common/header.php';
+
+?>
+
 <body class="bg-warning">
     <div class="row">  
         <header class="container text-center bg-primary text-white pb-4 p-3 fs-1">
@@ -51,7 +46,7 @@
                 <input type="radio" class="ms-4" name="selection" id="<?= $employee->getId() ?>" value="<?= $employee->getId() ?>" onchange="checkRadioSelection()">
                 </td>
                 <td>
-                <button type="submit" class="btn btn-secondary"><a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>">Modify</a></button>
+                <button type="" class="btn btn-secondary"><a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>">Modify</a></button>
 
                 </td>
             </tr>
@@ -62,10 +57,9 @@
 </form>
         </div>
     </div>
-    <div id="footer_add_employee" class="row">  
-        <footer class="container text-center bg-primary text-white pt-4 p-3 fs-3">
-            <p>for IWQ</p>
-        </footer>
-    </div>
-</body>
-</html>
+
+<?php
+
+include __DIR__ . '/../common/footer.php';
+
+?>
