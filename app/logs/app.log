@@ -3457,3 +3457,5 @@
 [2023-05-28 19:08:10] my_logger.INFO: getting Employee site to update [] []
 [2023-05-28 19:08:17] my_logger.INFO: Employee updating [] []
 [2023-05-28 19:08:17] my_logger.INFO: Employee list [] []
+[2023-05-28 19:09:29] my_logger.INFO: Employee list [] []
+[2023-05-28 19:09:30] my_logger.INFO: Employee list [] []
