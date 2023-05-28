@@ -49,7 +49,7 @@ protected mixed $db;
 
     public function save(Employee $employee): void
     {
-        if (!$this->isPeselRegistered($employee)) {
+        if (!$this->isNewPeselRegistered($employee)) {
             $sql = "insert into employees
                 (first_name, last_name, address, pesel) values
                 (:first_name, :last_name, :address, :pesel)";
@@ -61,9 +61,9 @@ protected mixed $db;
                 "address" => $employee->getAddress(),
                 "pesel" => $employee->getPesel(),
                 ]);
-        } else {
+       } else {
             header('Location: /employee/new');
-        }
+       }
     }
 
     public function delete($employee): void
@@ -78,7 +78,8 @@ protected mixed $db;
 
     public function modify(Employee $employee): void
     {
-        $sql = "update employees
+        if (!$this->isUpdatePeselRegistered($employee)) {
+            $sql = "update employees
             set 
                 first_name = :first_name,
                 last_name = :last_name, 
@@ -87,25 +88,44 @@ protected mixed $db;
             where 
                 id = :employee_id";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            "first_name" => $employee->getFirstName(),
-            "last_name" => $employee->getLastName(),
-            "address" => $employee->getAddress(),
-            "pesel" => $employee->getPesel(),
-            "employee_id" => $employee->getId(),
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                "first_name" => $employee->getFirstName(),
+                "last_name" => $employee->getLastName(),
+                "address" => $employee->getAddress(),
+                "pesel" => $employee->getPesel(),
+                "employee_id" => $employee->getId(),
         ]); 
+        } else {
+        header('Location: /employee/update');
+        }
     }
 
-    public function isPeselRegistered($employee): bool
+    public function isNewPeselRegistered($employee): bool
     {
         $sql = "SELECT * FROM employees
-            WHERE pesel = :pesel";
+            WHERE (pesel = :pesel)";
 
         $stmt = $this->db->prepare($sql);
         $pesel = $employee->getPesel();
-        $stmt->bindParam(':pesel', $pesel);
-        $stmt->execute();
+        $stmt->execute(["pesel" => $pesel]);
+
+        if (($stmt->rowCount()) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isUpdatePeselRegistered($employee): bool
+    {
+        $sql = "SELECT * FROM employees
+            WHERE ((pesel = :pesel) AND (id <> :id))";
+
+        $stmt = $this->db->prepare($sql);
+        $pesel = $employee->getPesel();
+        $id = $employee->getId();
+        $stmt->execute(["pesel" => $pesel, "id" => $id]);
 
         if (($stmt->rowCount()) > 0) {
             return true;

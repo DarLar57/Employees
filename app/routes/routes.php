@@ -53,11 +53,10 @@ $app->post('/employee/new', function (Request $request, Response $response)
     $employee_data['first_name'] = htmlspecialchars($data['first_name']);
     $employee_data['last_name'] = htmlspecialchars($data['last_name']);
 
-    $employee_address = [];
-    $employee_address['street'] = htmlspecialchars($data['street']);
-    $employee_address['number'] = htmlspecialchars($data['number']);
-    $employee_address['post_code'] = htmlspecialchars($data['post_code']);
-    $employee_address['town_or_village'] = htmlspecialchars($data['town_or_village']);
+    $employee_address[0] = htmlspecialchars($data['street']);
+    $employee_address[1] = htmlspecialchars($data['number']);
+    $employee_address[2] = htmlspecialchars($data['post_code']);
+    $employee_address[3] = htmlspecialchars($data['town_or_village']);
 
     $employee_data['address'] = $employee_address;
     $employee_data['pesel'] = htmlspecialchars($data['pesel']);
@@ -70,9 +69,9 @@ $app->post('/employee/new', function (Request $request, Response $response)
 
         $employee = new Employee($employee_data);
 
-        $employee_mapper = new DbOperations($this->db);
+        $employee_db = new DbOperations($this->db);
 
-        $employee_mapper->save($employee);
+        $employee_db->save($employee);
         $response = $response->withHeader('Location','/employees');
         
         return $response;
@@ -90,11 +89,10 @@ $app->post('/employee/update', function (Request $request, Response $response)
     $employee_data['first_name'] = htmlspecialchars($data['first_name']);
     $employee_data['last_name'] = htmlspecialchars($data['last_name']);
 
-    $employee_address = [];
-    $employee_address['street'] = htmlspecialchars($data['street']);
-    $employee_address['number'] = htmlspecialchars($data['number']);
-    $employee_address['post_code'] = htmlspecialchars($data['post_code']);
-    $employee_address['town_or_village'] = htmlspecialchars($data['town_or_village']);
+    $employee_address[0] = htmlspecialchars($data['street']);
+    $employee_address[1] = htmlspecialchars($data['number']);
+    $employee_address[2] = htmlspecialchars($data['post_code']);
+    $employee_address[3] = htmlspecialchars($data['town_or_village']);
 
     $employee_data['address'] = $employee_address;
     $employee_data['pesel'] = htmlspecialchars($data['pesel']);
@@ -107,8 +105,8 @@ $app->post('/employee/update', function (Request $request, Response $response)
 
         $employee = new Employee($employee_data);
 
-        $employee_mapper = new DbOperations($this->db);
-        $employee_mapper->modify($employee);
+        $employee_db = new DbOperations($this->db);
+        $employee_db->modify($employee);
     
         $response = $response->withHeader('Location','/employees');
     

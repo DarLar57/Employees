@@ -6,7 +6,6 @@ abstract class Person
 {
     protected string $firstName;
     protected string $lastName;
-    protected array $address;
     protected string $townOrVillage;
     protected string $postCode;
     protected string $street;

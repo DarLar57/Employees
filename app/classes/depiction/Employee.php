@@ -3,9 +3,14 @@
 namespace Models\Depiction;
 
 use \Models\Person;
+use Models\Depiction\Address;
 
 class Employee extends Person
 {
+    public array $address;
+    private Address $addressObj;
+    private BirthDate $birthDateObj;
+    private Sex $sexObj;
     private int $id;
 
     public function __construct(array $data) 
@@ -14,15 +19,13 @@ class Employee extends Person
         if(isset($data['id'])) {
             $this->id = $data['id'];
         }
-
+        
         $this->firstName = $data['first_name'];
         $this->lastName = $data['last_name'];
-        $this->address = $data['address'];
         $this->pesel = $data['pesel'];
-        $this->street = $data['address']['street'] ?? $data['address'][0];
-        $this->number = $data['address']['number'] ?? $data['address'][1];
-        $this->postCode = $data['address']['post_code'] ?? $data['address'][2];
-        $this->townOrVillage = $data['address']['town_or_village'] ?? $data['address'][3];      
+        $this->addressObj = new Address($data['address']);
+        $this->birthDateObj = new BirthDate($this->pesel);
+        $this->sexObj = new Sex($this->pesel);
     }
 
     public function getId(): int 
@@ -40,48 +43,52 @@ class Employee extends Person
         return $this->lastName;
     }
 
-    public function getAddress(): string 
-    {
-        $addressString = preg_replace('/,/', ' ', implode(", ", $this->address), 0);
-        return $addressString;
-    }
-
-    public function getTownOrVillage(): string 
-    {
-        return $this->townOrVillage;
-    }
-
-    public function getPostCode(): string
-     {
-        return $this->postCode;
-    }
-
     public function getPesel(): string
     {
         return $this->pesel;
     }
 
-    public function getStreet(): string
-    {
-        return $this->street;
-    }
-
-    public function getNumber(): string
-    {
-        return $this->number;
-    }
-
     public function getBirthDate(): string
     {
         $pesel = $this->getPesel();
-        $birthDate = new BirthDate($pesel);
-        return $birthDate->generateBirthDate($pesel); 
+        $birthDate = $this->birthDateObj->generateBirthDate($pesel); 
+        return $birthDate; 
     }
     
     public function getSex(): string
     {
         $pesel = $this->getPesel();
-        $sex = new Sex($pesel);
-        return $sex->generateSex($pesel); 
+        $sex = $this->sexObj->generateSex($pesel); 
+        return $sex; 
+    }
+
+    public function getAddress(): string
+    {
+        $address = $this->addressObj->generateAddressString();
+        return $address;
+    }
+
+    public function getTownOrVillage(): string 
+    {
+        $TownOrVillage = $this->addressObj->getTownOrVillage();
+        return $TownOrVillage;        
+    }
+
+    public function getPostCode(): string
+    {
+        $postCode = $this->addressObj->getpostCode();
+        return $postCode;  
+    }
+
+    public function getStreet(): string
+    {
+        $street = $this->addressObj->getStreet();
+        return $street;  
+    }
+
+    public function getNumber(): string
+    {
+        $number = $this->addressObj->getNumber();
+        return $number;
     }
 }
