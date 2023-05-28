@@ -6,7 +6,6 @@ use \Models\Person;
 
 class Sex extends Person
 {
-    
     public function __construct($pesel)
     {
         $this->pesel = $pesel;

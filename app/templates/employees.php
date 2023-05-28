@@ -52,12 +52,11 @@ include __DIR__ . '/../common/header.php';
             </tr>
 
 <?php }; ?>
-                </tbody>
+            </tbody>
         </table>
 </form>
         </div>
     </div>
-
 <?php
 
 include __DIR__ . '/../common/footer.php';
