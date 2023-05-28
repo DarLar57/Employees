@@ -1,11 +1,11 @@
 <?php
 
-namespace Models;
+namespace Models\Depiction;
 
-class Sex
+use \Models\Person;
+
+class Sex extends Person
 {
-    protected string $pesel;
-    protected string $sex;
     
     public function __construct($pesel)
     {

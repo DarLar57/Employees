@@ -4,15 +4,14 @@ namespace Models;
 
 class ValidatePesel
 {
-    protected string $pesel;
-    protected int $controlSum;
+    public string $pesel;
     
     public function __construct(string $pesel)
     {
         $this->pesel = $pesel;
     }
 
-    function getLastDigit($number): int
+    private function getLastDigit($number): int
     {
         return $number % 10;
     }

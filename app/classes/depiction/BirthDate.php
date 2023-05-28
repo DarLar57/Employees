@@ -1,24 +1,18 @@
 <?php
 
-namespace Models;
+namespace Models\Depiction;
 
 use \DateTime;
+use \Models\Person;
 
-class BirthDate
-{
-    protected string $pesel;
-    protected string $birthDate;
-    protected string $sex;
-    protected string $year;
-    protected string $month;
-    protected string $day;
-    
+class BirthDate extends Person
+{    
     public function __construct(string $pesel)
     {
         $this->pesel = $pesel;
     }
 
-    function generateBirthDate($pesel): string 
+    public function generateBirthDate($pesel): string 
     {
         // Extract birth date information from PESEL
         $year = substr($pesel, 0, 2);

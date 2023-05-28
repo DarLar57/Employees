@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Models\DbOperations;
-use \Models\Employee;
+use \Models\Depiction\Employee;
 use \Models\ValidatePesel;
 
 $app->get('/employees', function (Request $request, Response $response)

@@ -2,7 +2,7 @@
 
 namespace Models;
 
-use \Models\Employee;
+use \Models\Depiction\Employee;
 
 class DbOperations
 {

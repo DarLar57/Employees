@@ -1,22 +1,12 @@
 <?php
 
-namespace Models;
+namespace Models\Depiction;
 
-class Employee
+use \Models\Person;
+
+class Employee extends Person
 {
-    protected int $id;
-    protected string $firstName;
-    protected string $lastName;
-    protected array $address;
-
-    protected string $townOrVillage;
-    protected string $postCode;
-    protected string $street;
-    protected string $number;
-    protected string $pesel;
-    protected string $birthDate;
-    protected string $sex;
-
+    private int $id;
 
     public function __construct(array $data) 
     {
