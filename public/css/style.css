@@ -2,12 +2,10 @@ html, body {
     height: 100%;
     margin: 0;
 }
-  
 body {
     position: relative;
     padding-bottom: 50px; /* Adjust this value as needed to accommodate the footer height */
 }
-  
 footer {
     position: fixed;
     bottom: 0;
@@ -24,4 +22,13 @@ a {
 }
 button, input[type="text"] {
     box-shadow: 3px 3px 8px black;  
+}
+#errorMessage {
+    animation: blink 1s infinite;
+    text-shadow: 4px 4px 8px white;
+}
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
 }

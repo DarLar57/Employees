@@ -6,7 +6,7 @@ use \Models\Employee;
 
 class DbOperations
 {
-protected $db;
+protected mixed $db;
 
     public function __construct($db)
     {
@@ -17,6 +17,7 @@ protected $db;
     {
         $sql = "SELECT id, first_name, last_name, address, pesel
             from employees";
+            
         $stmt = $this->db->query($sql);
 
         $results = [];
@@ -27,11 +28,12 @@ protected $db;
         return $results;
     }
 
-    public function getEmployeeById($employee_id)
+    public function getEmployeeById($employee_id): ?Employee
     {
         $sql = "SELECT id, first_name, last_name, address, pesel
         from employees
             where id = :employee_id";
+
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["employee_id" => $employee_id]);
 
@@ -40,23 +42,25 @@ protected $db;
             $row['address'] = explode(",", $row['address']);
                       
             return new Employee($row);
+        } else {
+            return null;
         }
     }
 
     public function save(Employee $employee): void
     {
         if (!$this->isPeselRegistered($employee)) {
-        $sql = "insert into employees
-            (first_name, last_name, address, pesel) values
-            (:first_name, :last_name, :address, :pesel)";
+            $sql = "insert into employees
+                (first_name, last_name, address, pesel) values
+                (:first_name, :last_name, :address, :pesel)";
 
-        $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute([
-            "first_name" => $employee->getFirstName(),
-            "last_name" => $employee->getLastName(),
-            "address" => $employee->getAddress(),
-            "pesel" => $employee->getPesel(),
-        ]);
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                "first_name" => $employee->getFirstName(),
+                "last_name" => $employee->getLastName(),
+                "address" => $employee->getAddress(),
+                "pesel" => $employee->getPesel(),
+                ]);
         } else {
             header('Location: /employee/new');
         }
@@ -67,11 +71,12 @@ protected $db;
         $employee_id = $employee->getId();
         $sql = "DELETE from employees
             where id = :employee_id";
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute(["employee_id" => $employee_id]);
     }
 
-    public function modify(Employee $employee)
+    public function modify(Employee $employee): void
     {
         $sql = "update employees
             set 
@@ -83,7 +88,7 @@ protected $db;
                 id = :employee_id";
 
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute([
+        $stmt->execute([
             "first_name" => $employee->getFirstName(),
             "last_name" => $employee->getLastName(),
             "address" => $employee->getAddress(),
@@ -92,7 +97,7 @@ protected $db;
         ]); 
     }
 
-    public function isPeselRegistered($employee)
+    public function isPeselRegistered($employee): bool
     {
         $sql = "SELECT * FROM employees
             WHERE pesel = :pesel";
@@ -100,9 +105,12 @@ protected $db;
         $stmt = $this->db->prepare($sql);
         $pesel = $employee->getPesel();
         $stmt->bindParam(':pesel', $pesel);
-        $stmt->execute();   
+        $stmt->execute();
+
         if (($stmt->rowCount()) > 0) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }    
 }

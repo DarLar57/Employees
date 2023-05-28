@@ -4,10 +4,10 @@ namespace Models;
 
 class Sex
 {
-    protected $pesel;
-    protected $sex;
+    protected string $pesel;
+    protected string $sex;
     
-    public function __construct(string $pesel)
+    public function __construct($pesel)
     {
         $this->pesel = $pesel;
     }
@@ -16,7 +16,7 @@ class Sex
     {
         $peselArr = str_split($pesel);
         
-        ($peselArr[9] % 2) == 0 ? $sex = "female" : $sex = "male";
+        ((int)$peselArr[9] % 2) == 0 ? $sex = "female" : $sex = "male";
     
         return $sex;
     }

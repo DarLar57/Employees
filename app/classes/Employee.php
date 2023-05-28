@@ -4,18 +4,18 @@ namespace Models;
 
 class Employee
 {
-    protected $id;
-    protected $firstName;
-    protected $lastName;
+    protected int $id;
+    protected string $firstName;
+    protected string $lastName;
     protected array $address;
 
-    protected $townOrVillage;
-    protected $postCode;
-    protected $street;
-    protected $number;
-    protected $pesel;
-    protected $birthDate;
-    protected $sex;
+    protected string $townOrVillage;
+    protected string $postCode;
+    protected string $street;
+    protected string $number;
+    protected string $pesel;
+    protected string $birthDate;
+    protected string $sex;
 
 
     public function __construct(array $data) 
@@ -35,7 +35,7 @@ class Employee
         $this->townOrVillage = $data['address']['town_or_village'] ?? $data['address'][3];      
     }
 
-    public function getId(): string 
+    public function getId(): int 
     {
         return $this->id;
     }

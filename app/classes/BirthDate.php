@@ -6,12 +6,12 @@ use \DateTime;
 
 class BirthDate
 {
-    protected $pesel;
-    protected $birthDate;
-    protected $sex;
-    protected $year;
-    protected $month;
-    protected $day;
+    protected string $pesel;
+    protected string $birthDate;
+    protected string $sex;
+    protected string $year;
+    protected string $month;
+    protected string $day;
     
     public function __construct(string $pesel)
     {

@@ -46,6 +46,7 @@ function validatePeselAndDisplay() {
         validationLabel.style.color = 'red';
     }
 }
+
 function changeColor(color) {
     var paragraph = document.getElementById('PeselLabel');
     paragraph.style.backgroundColor = color;
@@ -88,30 +89,3 @@ $(document).ready(function() {
     });
   });
 });
-
-// for updating employee - submission
-/*$(document).ready(function() {
-  $('#modify_employee_form').submit(function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    var formData = $(this).serialize();
-    var employeeId = document.getElementById('id');
-    var id = employeeId.value;
-    // AJAX request
-    $.ajax({
-      url: '/employee/update',
-      type: 'POST',
-      data: formData,
-      success: function(response) {
-        
-        var peselInput = document.getElementById('pesel');
-        var pesel = peselInput.value;
-
-        if (validatePesel(pesel)) {
-          window.location.href = '/employees';
-        } 
-      }
-    });
-  });
-});
-*/

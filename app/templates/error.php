@@ -10,7 +10,11 @@ include __DIR__ . '/../common/header.php';
             Employee
         </header>
     </div>
-   <div class="pt-5 mt-5 fs-1 text-center text-danger">Wrong PESEL</div>
+   <div id="errorMessage" class="pt-5 mt-5 fs-1 text-center text-danger">Wrong PESEL
+   </div>
+   <div class="col-12 mt-5 ps-5">
+        <button class="btn btn-primary btn-lg" type="submit"><a href=\employees>Go to Employee List</button>
+   </div>
 
 <?php
 
