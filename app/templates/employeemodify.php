@@ -6,7 +6,7 @@ include __DIR__ . '/../common/header.php';
 
 <body class="bg-warning">
     <div class="row">  
-        <header class="container text-center bg-primary text-white pb-4 p-3 fs-1">
+        <header class="container text-center bg-primary text-white pb-3 p-2 fs-2">
             Modify Employee
         </header>
     </div>
@@ -46,7 +46,7 @@ include __DIR__ . '/../common/header.php';
             <div class="col-12">
                 <button class="btn btn-success" id="submit_update" type="submit">Submit form</button>
             </div>
-            <div class="col-12 mt-5 ps-5">
+            <div class="col-12 mt-3 ps-5">
                 <button class="btn btn-primary btn-lg" type="submit"><a href=\employees>Go to Employee List</button>
             </div>
         </form>

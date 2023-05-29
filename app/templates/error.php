@@ -6,7 +6,7 @@ include __DIR__ . '/../common/header.php';
 
 <body class="bg-warning">
     <div class="row">  
-        <header class="container text-center bg-primary text-white pb-4 p-3 fs-1">
+        <header class="container text-center bg-primary text-white pb-3 p-2 fs-2">
             Employee
         </header>
     </div>
