@@ -13,6 +13,7 @@ protected mixed $db;
         $this->db = $db;
     }
 
+    //getting all Employees
     public function getEmployees(): array
     {
         $sql = "SELECT id, first_name, last_name, address, pesel
@@ -22,12 +23,14 @@ protected mixed $db;
 
         $results = [];
         while($row = $stmt->fetch()) {
+            //creating array from address col. (street, number, code, town)
             $row['address'] = explode(",", $row['address']);
             $results[] = new Employee($row);
         }
         return $results;
     }
 
+    //getting Employee by ID
     public function getEmployeeById($employee_id): ?Employee
     {
         $sql = "SELECT id, first_name, last_name, address, pesel
@@ -39,6 +42,7 @@ protected mixed $db;
 
         if($result) {
             $row = $stmt->fetch();
+            //creating array from address col. (street, number, code, town)
             $row['address'] = explode(",", $row['address']);
                       
             return new Employee($row);
@@ -47,6 +51,7 @@ protected mixed $db;
         }
     }
 
+    //inserting an employee
     public function save(Employee $employee): void
     {
         if (!$this->isNewPeselRegistered($employee)) {
@@ -66,6 +71,7 @@ protected mixed $db;
        }
     }
 
+    //deleting an employee
     public function delete($employee): void
     {
         $employee_id = $employee->getId();
@@ -76,6 +82,7 @@ protected mixed $db;
         $stmt->execute(["employee_id" => $employee_id]);
     }
 
+    //updating an employee ny ID
     public function modify(Employee $employee): void
     {
         if (!$this->isUpdatePeselRegistered($employee)) {
@@ -101,6 +108,7 @@ protected mixed $db;
         }
     }
 
+    //check if pesel is in db for a new employee
     public function isNewPeselRegistered($employee): bool
     {
         $sql = "SELECT * FROM employees
@@ -117,6 +125,8 @@ protected mixed $db;
         }
     }
 
+    //check if a new pesel is in db for an employee to be updated
+    //to allow modification
     public function isUpdatePeselRegistered($employee): bool
     {
         $sql = "SELECT * FROM employees

@@ -16,6 +16,7 @@ class ValidatePesel
         return $number % 10;
     }
 
+    //validating if pesel is a valid number
     function validatePesel($pesel): bool
     {
         // Check if the PESEL number is 11 digits

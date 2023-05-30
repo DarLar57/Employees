@@ -12,6 +12,7 @@ class BirthDate extends Person
         $this->pesel = $pesel;
     }
 
+    //generating birth date from pesel
     public function generateBirthDate($pesel): string 
     {
         // Extract birth date information from PESEL

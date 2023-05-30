@@ -11,6 +11,7 @@ class Sex extends Person
         $this->pesel = $pesel;
     }
 
+    //generating sex using from pesel
     function generateSex($pesel): string
     {
         $peselArr = str_split($pesel);

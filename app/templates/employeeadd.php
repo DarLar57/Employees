@@ -11,7 +11,9 @@ include __DIR__ . '/../common/header.php';
         </header>
     </div>
     <div class="row p-4">
-        <form id="new_employee_form" class="row g-3 was-validated" method="post" action="/employee/new">
+        
+        <!-- AJAX to url: '/employee/new' -->
+        <form id="new_employee_form" class="row g-3 was-validated" method="post">
             <div class="col-md-4">
                 <label for="first_name" class="form-label">First name</label>
                 <input type="text" class="form-control" name="first_name" id="first_name" value="Adam" required pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-\s]+$|[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$">

@@ -16,6 +16,7 @@ class Address extends Person
         $this->townOrVillage = $address[3];
     }
 
+    //generating full address from address elements
     public function generateAddressString(): string
     {
         $address = preg_replace('/,/', ' ', implode(", ", $this->address), 0);

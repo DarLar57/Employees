@@ -6,6 +6,7 @@ use \Models\DbOperations;
 use \Models\Depiction\Employee;
 use \Models\ValidatePesel;
 
+//read employees
 $app->get('/employees', function (Request $request, Response $response)
 {
     $mapper = new DbOperations($this->db);
@@ -16,6 +17,7 @@ $app->get('/employees', function (Request $request, Response $response)
     return $response;
 });
 
+//delete employees
 $app->post('/employees', function (Request $request, Response $response)
 {
     $data = $request->getParsedBody();
@@ -33,6 +35,7 @@ $app->post('/employees', function (Request $request, Response $response)
     return $response;
 })->setName('employee-delete');
 
+//reading - new employee view where new employee's details are input
 $app->get('/employee/new', function (Request $request, Response $response)
 {
     $mapper = new DbOperations($this->db);
@@ -45,6 +48,7 @@ $app->get('/employee/new', function (Request $request, Response $response)
     return $response;
 });
 
+//for creating new employee
 $app->post('/employee/new', function (Request $request, Response $response)
 {
     $data = $request->getParsedBody();
@@ -65,6 +69,7 @@ $app->post('/employee/new', function (Request $request, Response $response)
 
     $this->logger->addInfo("Employee adding");
     
+    //validating if pesel is correct
     if ($validatePesel->validatePesel($employee_data['pesel'])) {
 
         $employee = new Employee($employee_data);
@@ -80,6 +85,7 @@ $app->post('/employee/new', function (Request $request, Response $response)
     }
 });
 
+//for updating new employee
 $app->post('/employee/update', function (Request $request, Response $response)
 {
     $data = $request->getParsedBody();
@@ -101,6 +107,7 @@ $app->post('/employee/update', function (Request $request, Response $response)
 
     $this->logger->addInfo("Employee updating");
 
+    //validating if pesel is correct
     if ($validatePesel->validatePesel($employee_data['pesel'])) {
 
         $employee = new Employee($employee_data);
@@ -116,6 +123,7 @@ $app->post('/employee/update', function (Request $request, Response $response)
     }
 });
 
+//getting a selected employee for updating
 $app->get('/employee/{id}', function (Request $request, Response $response, $args)
 {
     $employee_id = (int)$args['id'];

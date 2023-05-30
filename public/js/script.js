@@ -1,3 +1,4 @@
+//searching any string (input in the form ) from the table 
 $(document).ready(function(){
   $("#inputFilter").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -11,6 +12,7 @@ function getLastDigit(number) {
   return number % 10;
 }
 
+//check if a pesel is valid number
 function validatePesel(pesel) {
     // Extract the individual digits from the PESEL
     var digits = pesel.split('').map(Number);
@@ -32,6 +34,7 @@ function validatePesel(pesel) {
     return (controlSum == digits[10]);
 }
 
+//display if pesel is/not valid
 function validatePeselAndDisplay() {
     var peselInput = document.getElementById('pesel');
     var pesel = peselInput.value;
@@ -47,11 +50,6 @@ function validatePeselAndDisplay() {
     }
 }
 
-function changeColor(color) {
-    var paragraph = document.getElementById('PeselLabel');
-    paragraph.style.backgroundColor = color;
-}
-
 function checkRadioSelection() {
   var formRadio = document.querySelectorAll('form input[type="radio"]');
   var button = document.getElementById('deleteButton');
@@ -65,7 +63,8 @@ function checkRadioSelection() {
   }
   button.disabled = !isRadioSelected;
 }
-// for new employee submission
+
+// AJAX - for new employee's data submission
 $(document).ready(function() {
   $('#new_employee_form').submit(function(event) {
     event.preventDefault(); // Prevent default form submission
@@ -77,7 +76,7 @@ $(document).ready(function() {
       url: '/employee/new',
       type: 'POST',
       data: formData,
-      success: function(response) {
+      success: function() {
         
         var peselInput = document.getElementById('pesel');
         var pesel = peselInput.value;

@@ -48,6 +48,7 @@ class Employee extends Person
         return $this->pesel;
     }
 
+    //getting birth date using BirthDate class
     public function getBirthDate(): string
     {
         $pesel = $this->getPesel();
@@ -55,13 +56,15 @@ class Employee extends Person
         return $birthDate; 
     }
     
+    //getting sex using Sex class
     public function getSex(): string
     {
         $pesel = $this->getPesel();
         $sex = $this->sexObj->generateSex($pesel); 
         return $sex; 
     }
-
+    
+    //getting full Address using Address class
     public function getAddress(): string
     {
         $address = $this->addressObj->generateAddressString();
