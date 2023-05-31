@@ -97,3 +97,28 @@ $(document).ready(function() {
     });
   });
 });
+
+// AJAX - for updated employee's data submission
+$(document).ready(function() {
+  $('#modify_employee_form').submit(function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var formData = $(this).serialize();
+
+    // AJAX request
+    $.ajax({
+      url: '/employee/update',
+      type: 'POST',
+      data: formData,
+      success: function() {
+        
+        var peselInput = document.getElementById('pesel');
+        var pesel = peselInput.value;
+
+        if (validatePesel(pesel)) {
+          window.location.href = '/employees';
+        } 
+      }
+    });
+  });
+});

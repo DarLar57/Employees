@@ -76,6 +76,8 @@ $app->post('/employee/new', function (Request $request, Response $response)
 
         $dbObj = new DbOperations($this->db);
 
+        // checking if pesel is in db is 'isNewPeselRegistered' fun.
+        // inside the 'save' fun. of 'DbOperations' class
         $dbObj->save($employee);
         $response = $response->withHeader('Location','/employees');
         
@@ -113,6 +115,9 @@ $app->post('/employee/update', function (Request $request, Response $response)
         $employee = new Employee($employee_data);
 
         $dbObj = new DbOperations($this->db);
+
+        // checking if pesel (other than the one of the updated employee) is in db is
+        // in 'isUpdatePeselRegistered' fun. inside the 'modify' fun. of 'DbOperations' class
         $dbObj->modify($employee);
     
         $response = $response->withHeader('Location','/employees');
