@@ -87,7 +87,7 @@ $app->post('/employee/new', function (Request $request, Response $response)
     }
 });
 
-//for updating new employee
+//for updating employee
 $app->post('/employee/update', function (Request $request, Response $response)
 {
     $data = $request->getParsedBody();

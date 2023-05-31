@@ -50,7 +50,6 @@ function validatePeselAndDisplay() {
     }
 }
 
-
 $(document).ready(function(){
   // Get the form
   const form = document.getElementById('item_list');
