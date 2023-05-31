@@ -9,15 +9,15 @@ use \Models\ValidatePesel;
 //read employees
 $app->get('/employees', function (Request $request, Response $response)
 {
-    $mapper = new DbOperations($this->db);
-    $employees = $mapper->getEmployees();
+    $dbObj = new DbOperations($this->db);
+    $employees = $dbObj->getEmployees();
     $response = $this->view->render($response, "employees.php", ["employees" => $employees, "router" => $this->router]);
     $this->logger->addInfo("Employee list");
 
     return $response;
 });
 
-//delete employees
+//delete employee
 $app->post('/employees', function (Request $request, Response $response)
 {
     $data = $request->getParsedBody();
@@ -25,10 +25,10 @@ $app->post('/employees', function (Request $request, Response $response)
     $employee_id = [];
     $employee_id = htmlspecialchars($data['selection']);
 
-    $mapper = new DbOperations($this->db);
+    $dbObj = new DbOperations($this->db);
 
-    $employee = $mapper->getEmployeeById($employee_id);
-    $mapper->delete($employee);
+    $employee = $dbObj->getEmployeeById($employee_id);
+    $dbObj->delete($employee);
     $response = $response->withHeader('Location','/employees');
     $this->logger->addInfo("Employee deleted");
 
@@ -38,9 +38,9 @@ $app->post('/employees', function (Request $request, Response $response)
 //reading - new employee view where new employee's details are input
 $app->get('/employee/new', function (Request $request, Response $response)
 {
-    $mapper = new DbOperations($this->db);
+    $dbObj = new DbOperations($this->db);
 
-    $employees = $mapper->getEmployees();
+    $employees = $dbObj->getEmployees();
     $response = $this->view->render($response, "employeeadd.php", ["employees" => $employees, "router" => $this->router]);
     
     $this->logger->addInfo("get the site for Employee adding");
@@ -65,18 +65,18 @@ $app->post('/employee/new', function (Request $request, Response $response)
     $employee_data['address'] = $employee_address;
     $employee_data['pesel'] = htmlspecialchars($data['pesel']);
 
-    $validatePesel = new ValidatePesel ($employee_data['pesel']);
+    $validatePeselObj = new ValidatePesel ($employee_data['pesel']);
 
     $this->logger->addInfo("Employee adding");
     
     //validating if pesel is correct
-    if ($validatePesel->validatePesel($employee_data['pesel'])) {
+    if ($validatePeselObj->validatePesel($employee_data['pesel'])) {
 
         $employee = new Employee($employee_data);
 
-        $employee_db = new DbOperations($this->db);
+        $dbObj = new DbOperations($this->db);
 
-        $employee_db->save($employee);
+        $dbObj->save($employee);
         $response = $response->withHeader('Location','/employees');
         
         return $response;
@@ -103,17 +103,17 @@ $app->post('/employee/update', function (Request $request, Response $response)
     $employee_data['address'] = $employee_address;
     $employee_data['pesel'] = htmlspecialchars($data['pesel']);
 
-    $validatePesel = new ValidatePesel ($employee_data['pesel']);
+    $validatePeselObj = new ValidatePesel ($employee_data['pesel']);
 
     $this->logger->addInfo("Employee updating");
 
     //validating if pesel is correct
-    if ($validatePesel->validatePesel($employee_data['pesel'])) {
+    if ($validatePeselObj->validatePesel($employee_data['pesel'])) {
 
         $employee = new Employee($employee_data);
 
-        $employee_db = new DbOperations($this->db);
-        $employee_db->modify($employee);
+        $dbObj = new DbOperations($this->db);
+        $dbObj->modify($employee);
     
         $response = $response->withHeader('Location','/employees');
     
@@ -128,9 +128,9 @@ $app->get('/employee/{id}', function (Request $request, Response $response, $arg
 {
     $employee_id = (int)$args['id'];
 
-    $mapper = new DbOperations($this->db);
+    $dbObj = new DbOperations($this->db);
     
-    $employee = $mapper->getEmployeeById($employee_id);
+    $employee = $dbObj->getEmployeeById($employee_id);
     $response = $this->view->render($response, "employeemodify.php", ["employee" => $employee, "router" => $this->router]);
 
     $this->logger->addInfo("getting Employee site to update");

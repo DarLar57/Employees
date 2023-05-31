@@ -34,7 +34,7 @@ function validatePesel(pesel) {
     return (controlSum == digits[10]);
 }
 
-//display if pesel is/not valid
+//display if pesel is / is not valid
 function validatePeselAndDisplay() {
     var peselInput = document.getElementById('pesel');
     var pesel = peselInput.value;
@@ -50,19 +50,28 @@ function validatePeselAndDisplay() {
     }
 }
 
-function checkRadioSelection() {
-  var formRadio = document.querySelectorAll('form input[type="radio"]');
-  var button = document.getElementById('deleteButton');
-  var isRadioSelected = false;
 
-  for (var i = 0; i < formRadio.length; i++) {
-    if (formRadio[i].checked) {
-      isRadioSelected = true;
-      break;
+$(document).ready(function(){
+  // Get the form
+  const form = document.getElementById('item_list');
+  // Add ev. listener to the form
+  form.addEventListener('submit', function(event) {
+    // Check radio button selection
+    if (!isRadioButtonSelected()) {
+      event.preventDefault(); // Prevent submission
     }
+    });
+  });
+  // Check radio button selection
+function isRadioButtonSelected() {
+  var formRadio = document.querySelectorAll('form input[type="radio"]');
+    for (let i = 0; i < formRadio.length; i++) {
+      if (formRadio[i].checked) {
+        return true;
+      }
+    }
+    return false;
   }
-  button.disabled = !isRadioSelected;
-}
 
 // AJAX - for new employee's data submission
 $(document).ready(function() {

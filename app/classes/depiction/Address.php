@@ -25,12 +25,12 @@ class Address extends Person
 
     public function getTownOrVillage(): string 
     {
-        return $this->townOrVillage;
+        return ltrim($this->townOrVillage);
     }
 
     public function getPostCode(): string
     {
-        return $this->postCode;
+        return ltrim($this->postCode);
     }
 
     public function getStreet(): string
@@ -40,6 +40,6 @@ class Address extends Person
 
     public function getNumber(): string
     {
-        return $this->number;
+        return ltrim($this->number);
     }
 }

@@ -45,7 +45,7 @@ include __DIR__ . '/../common/header.php';
                 <button class="btn btn-success" id="submit_new" type="submit">Submit form</button>
             </div>
             <div class="col-12 mt-3 ps-5">
-                <button  class="btn btn-primary btn-lg" type="submit"><a href=\employees>Go to Employee List</button>
+                <button  class="btn btn-primary btn-lg" type="submit"><a href=\employees>Employee List</button>
             </div>
         </form>
     </div>

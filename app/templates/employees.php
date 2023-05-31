@@ -12,15 +12,15 @@ include __DIR__ . '/../common/header.php';
     </div>
     <div id="table_employees_container" class="row p-4">
         <div>
-            <button type="button" class="btn btn-success" oninput="checkInputs()"><a style="text-decoration: none; color: white;" href="/employee/new">Add new employee</a></button>
+            <button type="button" class="btn btn-success"><a style="text-decoration: none; color: white;" href="/employee/new">Add new employee</a></button>
         </div>
         <div id="form_employees_container">
-        <form id="item_list" method="post">
         <div class="row">
         <div class="col-md-4">
         <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in any colum...">
         </div>
         </div>
+            <form id="item_list" method="post">
         <table id="table_employees" class="table table-striped table-hover m-3 p-2">
             <tr class="table-row">
                 <th>First Name</th>
@@ -30,9 +30,10 @@ include __DIR__ . '/../common/header.php';
                 <th>Birth date</th>
                 <th>Sex</th>
                 <th>
-                <button type="submit" id="deleteButton" class="btn btn-danger" id="delete_btn" disabled>delete</button>
+                <button type="submit" id="deleteButton" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Please select" id="delete_btn">delete</button>
                 </th>    
             </tr>
+
 <?php foreach ($employees as $employee)  { $i = 0 ?>
             <tbody id="table_report">
             <tr>
@@ -43,10 +44,10 @@ include __DIR__ . '/../common/header.php';
                 <td><?=$employee->getBirthDate() ?></td>
                 <td><?=$employee->getSex() ?></td>
                 <td>
-                <input type="radio" class="ms-4" name="selection" id="<?= $employee->getId() ?>" value="<?= $employee->getId() ?>" onchange="checkRadioSelection()">
+                <input type="radio" class="ms-4" name="selection" id="<?= $employee->getId() ?>" value="<?= $employee->getId() ?>">
                 </td>
                 <td>
-                <button type="" class="btn btn-secondary"><a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>">Modify</a></button>
+                <button class="btn btn-secondary"><a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>" data-toggle="tooltip" data-placement="top" title="Selection not needed">Modify</a></button>
 
                 </td>
             </tr>
@@ -54,7 +55,7 @@ include __DIR__ . '/../common/header.php';
 <?php }; ?>
             </tbody>
         </table>
-</form>
+        </form>
         </div>
     </div>
 <?php

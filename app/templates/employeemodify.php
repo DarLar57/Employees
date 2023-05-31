@@ -29,25 +29,25 @@ include __DIR__ . '/../common/header.php';
             <fieldset>
                 <legend>Address</legend>
                 <label for="town_or_village">Town / Village</label><br>
-                <input type="text" class="form-control" id="town_or_village" name="town_or_village" value="<?=ltrim($employee->getTownOrVillage()) ?>" required pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-\s]+$|[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$"><br>
+                <input type="text" class="form-control" id="town_or_village" name="town_or_village" value="<?=$employee->getTownOrVillage() ?>" required pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-\s]+$|[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]+$"><br>
                 <label for="post_code">Post-code (xx-xxx)</label><br>
-                <input type="text" class="form-control" id="post_code" name="post_code" value="<?= ltrim($employee->getPostCode()) ?>" required pattern="[0-9]{2}[-][0-9]{3}"><br>
+                <input type="text" class="form-control" id="post_code" name="post_code" value="<?= $employee->getPostCode() ?>" required pattern="[0-9]{2}[-][0-9]{3}"><br>
                 <label for="street">Street</label><br>
                 <input type="text" class="form-control" id="street" name="street" value="<?=$employee->getStreet() ?>" required><br>
                 <label for="number">Number (building / apartment)</label><br>
-                <input type="text" class="form-control" idmbe="nur" name="number" value="<?=ltrim($employee->getNumber()) ?>" required><br><br>
+                <input type="text" class="form-control" id="number" name="number" value="<?=$employee->getNumber() ?>" required><br><br>
             </fieldset>
             </div>
             </div>
             <div class="col-md-4">
                 <label id="PeselLabel" for="pesel" class="form-label">PESEL (11 digits)</label>
-                <input type="text" class="form-control" name="pesel" id="pesel" value="<?=ltrim($employee->getPesel()) ?>" required pattern="[0-9]{11}" onchange="validatePeselAndDisplay()" onkeyup="validatePeselAndDisplay()">
+                <input type="text" class="form-control" name="pesel" id="pesel" value="<?=$employee->getPesel() ?>" required pattern="[0-9]{11}" onchange="validatePeselAndDisplay()" onkeyup="validatePeselAndDisplay()">
             </div>
             <div class="col-12">
                 <button class="btn btn-success" id="submit_update" type="submit">Submit form</button>
             </div>
             <div class="col-12 mt-3 ps-5">
-                <button class="btn btn-primary btn-lg" type="submit"><a href=\employees>Go to Employee List</button>
+                <button class="btn btn-primary btn-lg" type="submit"><a href=\employees>Employee List</button>
             </div>
         </form>
     </div>
