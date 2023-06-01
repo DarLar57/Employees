@@ -1,8 +1,6 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../app/classes/Middleware/AddEmployeeMiddleware.php';
-require __DIR__ . '/../app/classes/Middleware/UpdateEmployeeMiddleware.php';
 
 $settings = require __DIR__ . '/../app/config/settings.php';
   
