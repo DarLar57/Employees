@@ -72,52 +72,13 @@ function isRadioButtonSelected() {
     return false;
   }
 
-// AJAX - for new employee's data submission
+// For new / updated employee to prevent form submit if pasel invalid
 $(document).ready(function() {
-  $('#new_employee_form').submit(function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    var formData = $(this).serialize();
-
-    // AJAX request
-    $.ajax({
-      url: '/employee/new',
-      type: 'POST',
-      data: formData,
-      success: function() {
-        
-        var peselInput = document.getElementById('pesel');
-        var pesel = peselInput.value;
-
-        if (validatePesel(pesel)) {
-          window.location.href = '/employees';
-        } 
-      }
-    });
-  });
-});
-
-// AJAX - for updated employee's data submission
-$(document).ready(function() {
-  $('#modify_employee_form').submit(function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    var formData = $(this).serialize();
-
-    // AJAX request
-    $.ajax({
-      url: '/employee/update',
-      type: 'POST',
-      data: formData,
-      success: function() {
-        
-        var peselInput = document.getElementById('pesel');
-        var pesel = peselInput.value;
-
-        if (validatePesel(pesel)) {
-          window.location.href = '/employees';
-        } 
-      }
-    });
+  $('#new_employee_form, #modify_employee_form').submit(function(event) {
+    var peselInput = document.getElementById('pesel');
+    var pesel = peselInput.value;
+    if (!validatePesel(pesel)) {
+      event.preventDefault();
+    }
   });
 });

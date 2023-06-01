@@ -5,10 +5,11 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \Models\DbOperations;
 use \Models\Depiction\Employee;
 use \Models\ValidatePesel;
+use \Models\Middleware\AddEmployeeMiddleware;
+use \Models\Middleware\UpdateEmployeeMiddleware;
 
 //read employees
-$app->get('/employees', function (Request $request, Response $response)
-{
+$app->get('/employees', function (Request $request, Response $response, $args) {
     $dbObj = new DbOperations($this->db);
     $employees = $dbObj->getEmployees();
     $response = $this->view->render($response, "employees.php", ["employees" => $employees, "router" => $this->router]);
@@ -18,8 +19,7 @@ $app->get('/employees', function (Request $request, Response $response)
 });
 
 //delete employee
-$app->post('/employees', function (Request $request, Response $response)
-{
+$app->post('/employees', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
     
     $employee_id = [];
@@ -36,8 +36,7 @@ $app->post('/employees', function (Request $request, Response $response)
 })->setName('employee-delete');
 
 //reading - new employee view where new employee's details are input
-$app->get('/employee/new', function (Request $request, Response $response)
-{
+$app->get('/employee/new', function (Request $request, Response $response) {
     $dbObj = new DbOperations($this->db);
 
     $employees = $dbObj->getEmployees();
@@ -45,12 +44,10 @@ $app->get('/employee/new', function (Request $request, Response $response)
     
     $this->logger->addInfo("get the site for Employee adding");
 
-    return $response;
 });
 
-//for creating new employee
-$app->post('/employee/new', function (Request $request, Response $response)
-{
+//to create new employee
+$app->post('/employee/new', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
 
     $employee_data = [];
@@ -76,20 +73,21 @@ $app->post('/employee/new', function (Request $request, Response $response)
 
         $dbObj = new DbOperations($this->db);
 
-        // checking if pesel is in db is 'isNewPeselRegistered' fun.
+        // checking if pesel is in db with 'isNewPeselRegistered' fun.
         // inside the 'save' fun. of 'DbOperations' class
-        $dbObj->save($employee);
-        $response = $response->withHeader('Location','/employees');
         
-        return $response;
-    } else { 
-        return $this->view->render($response, "error.php", ["router" => $this->router]);
-    }
+        if (!$dbObj->isNewPeselRegistered($employee)) {
+            $dbObj->save($employee);
+            return $response = $response->withHeader('Location','/employee/new/' . $employee_data['first_name'] . '/' . $employee_data['last_name']);
+        } else { 
+            return $response = $response->withHeader('Location','/error/already registerred');
+        } 
+    } return $response = $response->withHeader('Location','/error/invalid');
+ 
 });
 
-//for updating employee
-$app->post('/employee/update', function (Request $request, Response $response)
-{
+//to update employee
+$app->post('/employee/update', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
 
     $employee_data = [];
@@ -116,21 +114,21 @@ $app->post('/employee/update', function (Request $request, Response $response)
 
         $dbObj = new DbOperations($this->db);
 
-        // checking if pesel (other than the one of the updated employee) is in db is
-        // in 'isUpdatePeselRegistered' fun. inside the 'modify' fun. of 'DbOperations' class
-        $dbObj->modify($employee);
-    
-        $response = $response->withHeader('Location','/employees');
-    
-        return $response;
-    } else {
-        return $this->view->render($response, "error.php", ["router" => $this->router]);
-    }
+        // checking if pesel is in db with 'isUpdatePeselRegistered' fun.
+        // inside the 'modify' fun. of 'DbOperations' class
+        
+        if (!$dbObj->isUpdatePeselRegistered($employee)) {
+            $dbObj->modify($employee);
+            return $response = $response->withHeader('Location','/employee/update/' . $employee_data['first_name'] . '/' . $employee_data['last_name']);
+        } else { 
+            return $response = $response->withHeader('Location','/error/already registerred');
+        } 
+    } return $response = $response->withHeader('Location','/error/invalid');
+ 
 });
 
-//getting a selected employee for updating
-$app->get('/employee/{id}', function (Request $request, Response $response, $args)
-{
+//getting selected employee for updating
+$app->get('/employee/{id}', function (Request $request, Response $response, $args) {
     $employee_id = (int)$args['id'];
 
     $dbObj = new DbOperations($this->db);
@@ -142,3 +140,69 @@ $app->get('/employee/{id}', function (Request $request, Response $response, $arg
 
     return $response;
 })->setName('employee-modify');
+
+//read employees after inserting new employee
+$app->get('/employee/new/{first_name}/{last_name}', function (Request $request, Response $response, $args) {
+    $firstName = $args['first_name'];
+    $lastName = $args['last_name'];
+
+    $dbObj = new DbOperations($this->db);
+    $employees = $dbObj->getEmployees();
+    $response = $this->view->render($response, "employees.php", ["employees" => $employees, "first_name" => $firstName, "last_name" => $lastName, "router" => $this->router]);
+
+    return $response;
+})->add(new AddEmployeeMiddleware);
+
+//deleting employee after inserting new employee
+$app->post('/employee/new/{first_name}/{last_name}', function (Request $request, Response $response, $args) {
+    $data = $request->getParsedBody();
+    
+    $employee_id = [];
+    $employee_id = htmlspecialchars($data['selection']);
+
+    $dbObj = new DbOperations($this->db);
+
+    $employee = $dbObj->getEmployeeById($employee_id);
+    $dbObj->delete($employee);
+    $response = $response->withHeader('Location','/employees');
+    $this->logger->addInfo("Employee deleted");
+
+    return $response;
+})->setName('employee-delete')->add(new AddEmployeeMiddleware);
+
+//read employees after updating new employee
+$app->get('/employee/update/{first_name}/{last_name}', function (Request $request, Response $response, $args) {
+    $firstName = $args['first_name'];
+    $lastName = $args['last_name'];
+
+    $dbObj = new DbOperations($this->db);
+    $employees = $dbObj->getEmployees();
+    $response = $this->view->render($response, "employees.php", ["employees" => $employees, "first_name" => $firstName, "last_name" => $lastName, "router" => $this->router]);
+
+    return $response;
+})->add(new UpdateEmployeeMiddleware);
+
+//deleting employee after updating new employee
+$app->post('/employee/update/{first_name}/{last_name}', function (Request $request, Response $response, $args) {
+    $data = $request->getParsedBody();
+    
+    $employee_id = [];
+    $employee_id = htmlspecialchars($data['selection']);
+
+    $dbObj = new DbOperations($this->db);
+
+    $employee = $dbObj->getEmployeeById($employee_id);
+    $dbObj->delete($employee);
+    $response = $response->withHeader('Location','/employees');
+    $this->logger->addInfo("Employee deleted");
+
+    return $response;
+})->setName('employee-delete')->add(new UpdateEmployeeMiddleware);
+
+//getting error message dependant on kind of error
+$app->get('/error/{txt}', function (Request $request, Response $response, $args) {
+    $txt = $args['txt'];
+    $response = $this->view->render($response, "error.php", ["txt" => $txt, "router" => $this->router]);
+
+    return $response;
+});

@@ -1,6 +1,8 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../app/classes/Middleware/AddEmployeeMiddleware.php';
+require __DIR__ . '/../app/classes/Middleware/UpdateEmployeeMiddleware.php';
 
 $settings = require __DIR__ . '/../app/config/settings.php';
   
@@ -21,6 +23,14 @@ $container['logger'] = function($c) {
     $file_handler = new \Monolog\Handler\StreamHandler("../app/logs/app.log");
     $logger->pushHandler($file_handler);
     return $logger;
+};
+
+$container['errorHandler'] = function ($container) {
+    return function ($request, $response, $exception) use ($container) {
+        return $response->withStatus(500)
+            ->withHeader('Content-Type', 'text/html')
+            ->write('Something went wrong!');
+    };
 };
 
 require __DIR__ . '/../app/routes/routes.php';

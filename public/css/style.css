@@ -16,6 +16,11 @@ a {
     text-decoration: none;
     color: white;
 }
+h3 {
+    text-shadow: 4px 4px 8px white, -4px -4px 8px white;
+    animation: blink 2s infinite;
+    margin-left: 10%;
+}
 .table-row {
     align-items: center;
     vertical-align: baseline;
