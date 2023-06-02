@@ -17,8 +17,7 @@ protected mixed $db;
     public function getEmployees(): array
     {
         $sql = "SELECT id, first_name, last_name, address, pesel
-            from employees
-            ORDER by id asc";
+            from employees";
             
         $stmt = $this->db->query($sql);
 
