@@ -2,6 +2,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use \Models\DBOperations;
+
 $settings = require __DIR__ . '/../app/config/settings.php';
   
 $app = new \Slim\App($settings);
@@ -13,6 +15,10 @@ $dbSet = $container->get('settings')['db'];
 $dsn = "{$dbSet['driver']}:host={$dbSet['host']};dbname={$dbSet['dbname']};charset={$dbSet['charset']}";
 
 $container['db'] = new PDO($dsn, $dbSet['user'], $dbSet['password']);
+
+$dbObj = new DbOperations($container['db']);
+
+$container['dbObj'] = $dbObj;
 
 $container['view'] = new \Slim\Views\PhpRenderer("../app/templates/");
 

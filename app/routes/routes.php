@@ -2,7 +2,6 @@
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \Models\DbOperations;
 use \Models\Depiction\Employee;
 use \Models\ValidatePesel;
 use \Models\Middleware\AddEmployeeMiddleware;
@@ -10,7 +9,8 @@ use \Models\Middleware\UpdateEmployeeMiddleware;
 
 //read employees
 $app->get('/employees', function (Request $request, Response $response, $args) {
-    $dbObj = new DbOperations($this->db);
+   
+    $dbObj = $this->get('dbObj');
     $employees = $dbObj->getEmployees();
     $response = $this->view->render($response, "employees.php", ["employees" => $employees, "router" => $this->router]);
     $this->logger->addInfo("Employee list");
@@ -25,7 +25,7 @@ $app->post('/employees', function (Request $request, Response $response) {
     $employee_id = [];
     $employee_id = htmlspecialchars($data['selection']);
 
-    $dbObj = new DbOperations($this->db);
+    $dbObj = $this->get('dbObj');
 
     $employee = $dbObj->getEmployeeById($employee_id);
     $dbObj->delete($employee);
@@ -37,7 +37,7 @@ $app->post('/employees', function (Request $request, Response $response) {
 
 //reading - new employee view where new employee's details are input
 $app->get('/employee/new', function (Request $request, Response $response) {
-    $dbObj = new DbOperations($this->db);
+    $dbObj = $this->get('dbObj');
 
     $employees = $dbObj->getEmployees();
     $response = $this->view->render($response, "employeeadd.php", ["employees" => $employees, "router" => $this->router]);
@@ -71,7 +71,7 @@ $app->post('/employee/new', function (Request $request, Response $response) {
 
         $employee = new Employee($employee_data);
 
-        $dbObj = new DbOperations($this->db);
+        $dbObj = $this->get('dbObj');
 
         // checking if pesel is in db with 'isNewPeselRegistered' fun.
         // inside the 'save' fun. of 'DbOperations' class
@@ -112,7 +112,7 @@ $app->post('/employee/update', function (Request $request, Response $response) {
 
         $employee = new Employee($employee_data);
 
-        $dbObj = new DbOperations($this->db);
+        $dbObj = $this->get('dbObj');
 
         // checking if pesel is in db with 'isUpdatePeselRegistered' fun.
         // inside the 'modify' fun. of 'DbOperations' class
@@ -131,7 +131,7 @@ $app->post('/employee/update', function (Request $request, Response $response) {
 $app->get('/employee/{id}', function (Request $request, Response $response, $args) {
     $employee_id = (int)$args['id'];
 
-    $dbObj = new DbOperations($this->db);
+    $dbObj = $this->get('dbObj');
     
     $employee = $dbObj->getEmployeeById($employee_id);
     $response = $this->view->render($response, "employeemodify.php", ["employee" => $employee, "router" => $this->router]);
@@ -146,7 +146,7 @@ $app->get('/employee/new/{first_name}/{last_name}', function (Request $request, 
     $firstName = $args['first_name'];
     $lastName = $args['last_name'];
 
-    $dbObj = new DbOperations($this->db);
+    $dbObj = $this->get('dbObj');
     $employees = $dbObj->getEmployees();
     $response = $this->view->render($response, "employees.php", ["employees" => $employees, "first_name" => $firstName, "last_name" => $lastName, "router" => $this->router]);
 
@@ -160,7 +160,7 @@ $app->post('/employee/new/{first_name}/{last_name}', function (Request $request,
     $employee_id = [];
     $employee_id = htmlspecialchars($data['selection']);
 
-    $dbObj = new DbOperations($this->db);
+    $dbObj = $this->get('dbObj');
 
     $employee = $dbObj->getEmployeeById($employee_id);
     $dbObj->delete($employee);
@@ -175,7 +175,7 @@ $app->get('/employee/update/{first_name}/{last_name}', function (Request $reques
     $firstName = $args['first_name'];
     $lastName = $args['last_name'];
 
-    $dbObj = new DbOperations($this->db);
+    $dbObj = $this->get('dbObj');
     $employees = $dbObj->getEmployees();
     $response = $this->view->render($response, "employees.php", ["employees" => $employees, "first_name" => $firstName, "last_name" => $lastName, "router" => $this->router]);
 
@@ -189,7 +189,7 @@ $app->post('/employee/update/{first_name}/{last_name}', function (Request $reque
     $employee_id = [];
     $employee_id = htmlspecialchars($data['selection']);
 
-    $dbObj = new DbOperations($this->db);
+    $dbObj = $this->get('dbObj');
 
     $employee = $dbObj->getEmployeeById($employee_id);
     $dbObj->delete($employee);

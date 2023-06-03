@@ -17,8 +17,7 @@ protected mixed $db;
     public function getEmployees(): array
     {
         $sql = "SELECT id, first_name, last_name, address, pesel
-            from employees
-            ORDER by id asc";
+        from employees ORDER BY id ASC";
             
         $stmt = $this->db->query($sql);
 
@@ -117,6 +116,7 @@ protected mixed $db;
 
         $stmt = $this->db->prepare($sql);
         $pesel = $employee->getPesel();
+        
         $stmt->execute(["pesel" => $pesel]);
 
         if (($stmt->rowCount()) > 0) {
