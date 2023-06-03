@@ -12,7 +12,7 @@ include __DIR__ . '/../common/header.php';
     </div>
     <div id="table_employees_container" class="row p-4">
         <div>
-            <button type="button" class="btn btn-success"><a style="text-decoration: none; color: white;" href="/employee/new">Add new employee</a></button>
+            <button type="button" class="btn btn-success"><a style="text-decoration: none; color: white;" href="/employees/new">Add new employee</a></button>
         </div>
         <div id="form_employees_container">
         <div class="row">

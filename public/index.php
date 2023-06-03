@@ -37,6 +37,10 @@ $container['errorHandler'] = function ($container) {
     };
 };
 
-require __DIR__ . '/../app/routes/routes.php';
+require __DIR__ . '/../app/routes/add.php';
+require __DIR__ . '/../app/routes/delete.php';
+require __DIR__ . '/../app/routes/error.php';
+require __DIR__ . '/../app/routes/read.php';
+require __DIR__ . '/../app/routes/update.php';
 
 $app->run();
