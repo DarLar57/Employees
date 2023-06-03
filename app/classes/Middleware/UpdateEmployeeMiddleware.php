@@ -2,9 +2,12 @@
 
 namespace Models\Middleware;
 
+use Psr\Http\Message\ServerRequestInterface as request;
+use Psr\Http\Message\ResponseInterface as response;
+
 class UpdateEmployeeMiddleware
 {
-    public function __invoke($request, $response, $next)
+    public function __invoke(request $request, response $response, callable $next)
     {
         {
             $route = $request->getAttribute('route');
