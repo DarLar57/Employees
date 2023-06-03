@@ -12,7 +12,7 @@ class Employee extends Person
     private BirthDate $birthDateObj;
     private Sex $sexObj;
     private int $id;
-
+     
     public function __construct(array $data) 
     {
         // no id if we're creating
