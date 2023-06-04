@@ -41,6 +41,8 @@ $app->post('/employees/new', function (Request $request, Response $response) {
         } else { 
             return $response = $response->withHeader('Location','/error/already registerred');
         } 
-    } return $response = $response->withHeader('Location','/error/invalid');
- 
+    }
+
+    $response = $response->withHeader('Location','/error/invalid');
+    return $response;
 });

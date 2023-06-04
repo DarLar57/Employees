@@ -2,12 +2,12 @@
 
 namespace Models\Middleware;
 
-use Psr\Http\Message\ServerRequestInterface as request;
-use Psr\Http\Message\ResponseInterface as response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
 class AddEmployeeMiddleware
 {
-    public function __invoke(request $request, response $response, callable $next)
+    public function __invoke(Request $request, Response $response, callable $next)
     {
         {
             $route = $request->getAttribute('route');
