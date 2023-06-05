@@ -44,11 +44,12 @@ include __DIR__ . '/../common/header.php';
                 <td><?=$employee->getBirthDate() ?></td>
                 <td><?=$employee->getSex() ?></td>
                 <td>
-                <input type="radio" class="ms-4" name="selection" id="<?= $employee->getId() ?>" value="<?= $employee->getId() ?>">
+                <input type="radio" class="ms-4" name="selectionId" id="selectionId" value="<?= $employee->getId() ?>">
+                <input type="hidden" class="ms-4" name="first_name" id="first_name" value="<?= $employee->getFirstName()?>">
+                <input type="hidden" class="ms-4" name="last_name" id="last_name" value="<?= $employee->getLastName() ?>">
                 </td>
                 <td>
                 <button class="btn btn-secondary"><a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>" data-toggle="tooltip" data-placement="top" title="Selection not needed">Modify</a></button>
-
                 </td>
             </tr>
 

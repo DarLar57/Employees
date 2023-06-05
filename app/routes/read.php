@@ -4,6 +4,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Models\Middleware\AddEmployeeMiddleware;
 use \Models\Middleware\UpdateEmployeeMiddleware;
+use \Models\Middleware\DeleteEmployeeMiddleware;
 
 //read employees
 $app->get('/employees', function (Request $request, Response $response, $args) {
@@ -64,3 +65,16 @@ $app->get('/employees/update/{first_name}/{last_name}', function (Request $reque
 
     return $response;
 })->add(new UpdateEmployeeMiddleware);
+
+//read employees after deleting employee
+$app->get('/employees/deleted/{first_name}/{last_name}', function (Request $request, Response $response, $args) {
+    
+    $firstName = $args['first_name'];
+    $lastName = $args['last_name'];
+
+    $dbObj = $this->get('dbObj');
+    $employees = $dbObj->getEmployees();
+    $response = $this->view->render($response, "employeesReadDelete.php", ["employees" => $employees, "first_name" => $firstName, "last_name" => $lastName, "router" => $this->router]);
+
+    return $response;
+})->add(new DeleteEmployeeMiddleware);
