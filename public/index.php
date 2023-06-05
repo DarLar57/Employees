@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use \Models\DBOperations;
+use \Models\DbOperations;
 
 $settings = require __DIR__ . '/../app/config/settings.php';
   
