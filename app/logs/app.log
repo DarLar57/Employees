@@ -7618,3 +7618,8 @@
 [2023-06-05 03:11:13] my_logger.INFO: Employee updating [] []
 [2023-06-05 03:11:16] my_logger.INFO: Employee deleted [] []
 [2023-06-05 03:11:23] my_logger.INFO: Employee deleted [] []
+[2023-06-05 03:17:37] my_logger.INFO: get the site for Employee adding [] []
+[2023-06-05 03:17:44] my_logger.INFO: Employee adding [] []
+[2023-06-05 03:22:05] my_logger.INFO: get the site for Employee adding [] []
+[2023-06-05 03:22:09] my_logger.INFO: Employee adding [] []
+[2023-06-05 03:22:11] my_logger.INFO: Employee deleted [] []
