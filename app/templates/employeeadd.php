@@ -1,18 +1,9 @@
-<?php
-
-include __DIR__ . '/../common/header.php';
-
-?>
-
-<body class="bg-warning">
-    <div class="row">  
+<?= include __DIR__ . '/common/header.php'; ?>
         <header class="container text-center bg-primary text-white pb-3 p-2 fs-2">
             New Employee
         </header>
     </div>
     <div class="row p-4">
-        
-        <!-- AJAX to url: '/employees/new' -->
         <form id="new_employee_form" class="row g-3 was-validated" action='/employees/new' method="post">
             <div class="col-md-4">
                 <label for="first_name" class="form-label">First name</label>
@@ -41,18 +32,15 @@ include __DIR__ . '/../common/header.php';
                 <label id="PeselLabel" for="pesel" class="form-label">PESEL (11 digits)</label>
                 <input type="text" class="form-control" name="pesel" id="pesel" value="65030311274" onchange="validatePeselAndDisplay()" onkeyup="validatePeselAndDisplay()" required pattern="[0-9]{11}">
             </div>
-            <div class="col-12">
-                <button class="btn btn-success" id="submit_new" type="submit">Submit form</button>
-            </div>
-            <div class="col-12 mt-3 ps-5">
-                <button  class="btn btn-primary btn-lg" type="submit"><a href=\employees>Employee List</button>
-            </div>
+
+<?php include __DIR__ . '/common/submitAndEmployeesBtn.php'; ?>            
+
         </form>
     </div>
 
 <?php
 
-include __DIR__ . '/../common/footer.php';
+include __DIR__ . '/common/footer.php';
 
 ?>
 

@@ -1,11 +1,5 @@
-<?php
+<?= include __DIR__ . '/common/header.php'; ?>
 
-include __DIR__ . '/../common/header.php';
-
-?>
-
-<body class="bg-warning">
-    <div class="row">  
         <header class="container text-center bg-primary text-white pb-3 p-2 fs-2">
             Employee
         </header>
@@ -17,6 +11,6 @@ include __DIR__ . '/../common/header.php';
   </div>
 <?php
 
-include __DIR__ . '/../common/footer.php';
+include __DIR__ . '/common/footer.php';
 
 ?>
