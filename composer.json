@@ -13,7 +13,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Models\\": ["app/classes/", "app/classes/Depiction", "app/classes/Middleware"]
+            "App\\Models\\": [ "app/classes/Models", "app/classes/Models/Employees" ],
+            "App\\Models\\Employees\\":  "app/classes/Models/Employees" ,
+            "App\\Controllers\\":  "app/classes/Controllers" ,
+            "App\\Middleware\\":  "app/classes/Middleware"
         }
     }
 }

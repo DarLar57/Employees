@@ -1,4 +1,9 @@
-<?= include __DIR__ . '/common/header.php'; ?>
+<?php
+
+include __DIR__ . '/common/header.php'; 
+
+?>
+
         <header class="container text-center bg-primary text-white pb-3 p-2 fs-2">
             Modify Employee
         </header>

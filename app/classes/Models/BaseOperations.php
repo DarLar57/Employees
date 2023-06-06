@@ -1,10 +1,10 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use \Models\Depiction\Employee;
+use \App\Models\Employees\Employee;
 
-class DbOperations
+class BaseOperations
 {
 protected mixed $db;
 
@@ -52,7 +52,7 @@ protected mixed $db;
     }
 
     //inserting an employee
-    public function save(Employee $employee): void
+    public function saveEmployee(Employee $employee): void
     {
         if (!$this->isNewPeselRegistered($employee)) {
             $sql = "insert into employees
@@ -72,7 +72,7 @@ protected mixed $db;
     }
 
     //deleting an employee
-    public function delete($employee): void
+    public function deleteEmployee($employee): void
     {
         $employee_id = $employee->getId();
         $sql = "DELETE from employees
@@ -83,7 +83,7 @@ protected mixed $db;
     }
 
     //updating an employee ny ID
-    public function modify(Employee $employee): void
+    public function modifyEmployee(Employee $employee): void
     {
         if (!$this->isUpdatePeselRegistered($employee)) {
             $sql = "update employees

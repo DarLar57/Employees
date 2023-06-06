@@ -1,12 +1,13 @@
 <?php
 
-namespace Models\Depiction;
+namespace App\Models;
 
-use \Models\Person;
-
-class Address extends Person
-{    
-    public array $address;
+class Address
+{   private string $townOrVillage;
+    private string $postCode;
+    private string $street;
+    private string $number;
+    private array $address;
     public function __construct(array $address)
     {
         $this->address = $address;
@@ -21,6 +22,11 @@ class Address extends Person
     {
         $address = implode(", ", $this->address);
         return $address;
+    }
+
+    public function getAddressArr(): array
+    {
+        return $this->address;
     }
 
     public function getTownOrVillage(): string 
