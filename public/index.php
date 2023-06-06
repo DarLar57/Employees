@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use \Models\DBOperations;
+use \App\Models\BaseOperations;
 
 $settings = require __DIR__ . '/../app/config/settings.php';
   
@@ -16,7 +16,7 @@ $dsn = "{$dbSet['driver']}:host={$dbSet['host']};dbname={$dbSet['dbname']};chars
 
 $container['db'] = new PDO($dsn, $dbSet['user'], $dbSet['password']);
 
-$dbObj = new DbOperations($container['db']);
+$dbObj = new BaseOperations($container['db']);
 
 $container['dbObj'] = $dbObj;
 
@@ -28,7 +28,7 @@ $container['logger'] = function($c) {
     $logger->pushHandler($file_handler);
     return $logger;
 };
-
+/*
 $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         return $response->withStatus(500)
@@ -36,11 +36,8 @@ $container['errorHandler'] = function ($container) {
             ->write('Something went wrong!');
     };
 };
+*/
 
-require __DIR__ . '/../app/routes/add.php';
-require __DIR__ . '/../app/routes/delete.php';
-require __DIR__ . '/../app/routes/error.php';
-require __DIR__ . '/../app/routes/read.php';
-require __DIR__ . '/../app/routes/update.php';
+require __DIR__ . '/../app/routes/routes.php';
 
 $app->run();

@@ -1,18 +1,13 @@
 <?php
 
-namespace Models\Depiction;
+namespace App\Models\Employees;
 
-use \Models\Person;
-use Models\Depiction\Address;
+use \App\Models\Person;
+use \App\Models\Pesel;
+use \App\Models\Address;
 
 class Employee extends Person
 {
-    public array $address;
-    private Address $addressObj;
-    private BirthDate $birthDateObj;
-    private Sex $sexObj;
-    private int $id;
-     
     public function __construct(array $data) 
     {
         // no id if we're creating
@@ -23,9 +18,10 @@ class Employee extends Person
         $this->firstName = $data['first_name'];
         $this->lastName = $data['last_name'];
         $this->pesel = $data['pesel'];
+        $this->address = $data['address'];
+
         $this->addressObj = new Address($data['address']);
-        $this->birthDateObj = new BirthDate($this->pesel);
-        $this->sexObj = new Sex($this->pesel);
+        $this->peselObj = new Pesel($this->pesel);
     }
 
     public function getId(): int 
@@ -51,17 +47,16 @@ class Employee extends Person
     //getting birth date using BirthDate class
     public function getBirthDate(): string
     {
-        $pesel = $this->getPesel();
-        $birthDate = $this->birthDateObj->generateBirthDate($pesel); 
-        return $birthDate; 
+        $this->birthDate = $this->peselObj->generateBirthDate($this->pesel);
+
+        return $this->birthDate; 
     }
     
     //getting sex using Sex class
     public function getSex(): string
     {
-        $pesel = $this->getPesel();
-        $sex = $this->sexObj->generateSex($pesel); 
-        return $sex; 
+        $this->sex = $this->peselObj->generateSex($this->pesel);
+        return $this->sex; 
     }
     
     //getting full Address using Address class

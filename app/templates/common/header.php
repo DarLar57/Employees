@@ -10,4 +10,4 @@
     <script src="/js/script.js"></script>
 </head>
 <body class="bg-warning">
-    <div class="row">  
+    <div class="row">

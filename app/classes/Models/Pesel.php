@@ -1,18 +1,19 @@
 <?php
 
-namespace Models\Depiction;
+namespace App\Models;
 
 use \DateTime;
-use \Models\Person;
 
-class BirthDate extends Person
-{    
+class Pesel
+{   
+    public string $pesel;
+    public string $birthDate; 
     public function __construct(string $pesel)
     {
         $this->pesel = $pesel;
     }
 
-    //generating birth date from pesel
+    //generating birth date of Employee
     public function generateBirthDate($pesel): string 
     {
         // Extract birth date information from PESEL
@@ -50,5 +51,15 @@ class BirthDate extends Person
         $formattedDate = $dateTime->format('Y-m-d');
     
         return $formattedDate;
+    }
+    
+    //generating Sex of employee
+    public function generateSex($pesel): string
+    {
+        $peselArr = str_split($pesel);
+        
+        ((int)$peselArr[9] % 2) == 0 ? $sex = "female" : $sex = "male";
+    
+        return $sex;
     }
 }
