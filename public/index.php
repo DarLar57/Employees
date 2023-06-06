@@ -2,11 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-<<<<<<< HEAD
-use \Models\DbOperations;
-=======
 use \App\Models\BaseOperations;
->>>>>>> draft
 
 $settings = require __DIR__ . '/../app/config/settings.php';
   
@@ -32,7 +28,7 @@ $container['logger'] = function($c) {
     $logger->pushHandler($file_handler);
     return $logger;
 };
-/*
+
 $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         return $response->withStatus(500)
@@ -40,7 +36,6 @@ $container['errorHandler'] = function ($container) {
             ->write('Something went wrong!');
     };
 };
-*/
 
 require __DIR__ . '/../app/routes/routes.php';
 
