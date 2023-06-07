@@ -28,7 +28,7 @@ include __DIR__ . '/common/header.php';
                 <label for="street">Street</label><br>
                 <input type="text" class="form-control" id="street" name="street" value="Akacjowa" required><br>
                 <label for="number">Number (building / apartment)</label><br>
-                <input type="text" class="form-control" id="number" name="number" value="1/2" required><br><br>
+                <input type="text" class="form-control" id="number" name="number" value="1/2A" required><br><br>
             </fieldset>
             </div>
             </div>
