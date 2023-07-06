@@ -22,6 +22,7 @@ $container['dbObj'] = $dbObj;
 
 $container['view'] = new \Slim\Views\PhpRenderer("../app/templates/");
 
+
 $container['logger'] = function($c) {
     $logger = new \Monolog\Logger('my_logger');
     $file_handler = new \Monolog\Handler\StreamHandler("../app/logs/app.log");
@@ -33,9 +34,14 @@ $container['errorHandler'] = function ($container) {
     return function ($request, $response, $exception) use ($container) {
         return $response->withStatus(500)
             ->withHeader('Content-Type', 'text/html')
-            ->write('Something went wrong!');
+            ->write('Something went wrong !');
     };
 };
+
+$app->redirect('/', '/employees', 301);
+$app->redirect('/employees/', '/employees', 301);
+$app->redirect('/employee', '/employees', 301);
+$app->redirect('/employee/', '/employees', 301);
 
 require __DIR__ . '/../app/routes/routes.php';
 

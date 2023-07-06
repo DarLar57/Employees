@@ -19,7 +19,6 @@ class Employees
     //to create new employee
     public function addEmployees($request, $response)
     {
-        // your code
         // to access items in the container... $this->container->get('');
 
         $data = $request->getParsedBody();

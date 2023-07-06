@@ -1,15 +1,15 @@
 //searching any string (input in the form ) from the table 
 $(document).ready(function(){
-  $("#inputFilter").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#table_report tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $("#inputFilter").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#table_report tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
     });
-  });
 });
 
 function getLastDigit(number) {
-  return number % 10;
+    return number % 10;
 }
 
 //check if a pesel is valid number
@@ -51,34 +51,34 @@ function validatePeselAndDisplay() {
 }
 
 $(document).ready(function(){
-  // Get the form
-  const form = document.getElementById('item_list');
-  // Add ev. listener to the form
-  form.addEventListener('submit', function(event) {
+    // Get the form
+    const form = document.getElementById('item_list');
+    // Add ev. listener to the form
+    form.addEventListener('submit', function(event) {
     // Check radio button selection
     if (!isRadioButtonSelected()) {
       event.preventDefault(); // Prevent submission
     }
     });
-  });
-  // Check radio button selection
+});
+// Check radio button selection
 function isRadioButtonSelected() {
-  var formRadio = document.querySelectorAll('form input[type="radio"]');
-    for (let i = 0; i < formRadio.length; i++) {
-      if (formRadio[i].checked) {
-        return true;
-      }
-    }
-    return false;
-  }
+    var formRadio = document.querySelectorAll('form input[type="radio"]');
+        for (let i = 0; i < formRadio.length; i++) {
+            if (formRadio[i].checked) {
+            return true;
+            }
+        }
+        return false;
+}
 
 // For new / updated employee to prevent form submit if pasel invalid
 $(document).ready(function() {
-  $('#new_employee_form, #modify_employee_form').submit(function(event) {
-    var peselInput = document.getElementById('pesel');
-    var pesel = peselInput.value;
-    if (!validatePesel(pesel)) {
-      event.preventDefault();
-    }
-  });
+    $('#new_employee_form, #modify_employee_form').submit(function(event) {
+        var peselInput = document.getElementById('pesel');
+        var pesel = peselInput.value;
+        if (!validatePesel(pesel)) {
+            event.preventDefault();
+        }
+    });
 });

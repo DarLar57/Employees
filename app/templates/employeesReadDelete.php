@@ -14,9 +14,9 @@ include __DIR__ . '/common/header.php';
         </div>
         <div id="form_employees_container">
         <div class="row">
-        <div class="col-md-4">
-        <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in any colum...">
-        </div>
+            <div class="col-md-4">
+            <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in any colum...">
+            </div>
         </div>
             <form id="item_list" method="post">
         <table id="table_employees" class="table table-striped table-hover m-3 p-2">
@@ -47,7 +47,11 @@ include __DIR__ . '/common/header.php';
                 <input type="hidden" class="ms-4" name="last_name" id="last_name" value="<?= $employee->getLastName() ?>">
                 </td>
                 <td>
-                <button class="btn btn-secondary"><a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>" data-toggle="tooltip" data-placement="top" title="Selection not needed">Modify</a></button>
+                <button class="btn btn-secondary">
+                    <a href="<?=$router->pathFor('employee-modify', ['id' => $employee->getId()])?>" data-toggle="tooltip" data-placement="top" title="Selection not needed">
+                        Modify
+                    </a>
+                </button>
                 </td>
             </tr>
 

@@ -6,7 +6,7 @@ use \App\Models\Employees\Employee;
 
 class BaseOperations
 {
-protected mixed $db;
+private mixed $db;
 
     public function __construct($db)
     {
@@ -16,8 +16,10 @@ protected mixed $db;
     //getting all Employees
     public function getEmployees(): array
     {
-        $sql = "SELECT id, first_name, last_name, address, pesel
-            from employees ORDER by id ASC";
+        $sql = 
+            "SELECT id, first_name, last_name, address, pesel
+                FROM employees 
+                    ORDER by id ASC";
             
         $stmt = $this->db->query($sql);
 
@@ -33,9 +35,10 @@ protected mixed $db;
     //getting Employee by ID
     public function getEmployeeById($employee_id): ?Employee
     {
-        $sql = "SELECT id, first_name, last_name, address, pesel
-        from employees
-            where id = :employee_id";
+        $sql = 
+            "SELECT id, first_name, last_name, address, pesel
+                FROM employees
+                    WHERE id = :employee_id";
 
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute(["employee_id" => $employee_id]);
@@ -55,9 +58,11 @@ protected mixed $db;
     public function saveEmployee(Employee $employee): void
     {
         if (!$this->isNewPeselRegistered($employee)) {
-            $sql = "insert into employees
-                (first_name, last_name, address, pesel) values
-                (:first_name, :last_name, :address, :pesel)";
+            $sql = 
+                "INSERT INTO employees
+                    (first_name, last_name, address, pesel)
+                        VALUES
+                            (:first_name, :last_name, :address, :pesel)";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
@@ -75,8 +80,9 @@ protected mixed $db;
     public function deleteEmployee($employee): void
     {
         $employee_id = $employee->getId();
-        $sql = "DELETE from employees
-            where id = :employee_id";
+        $sql = 
+            "DELETE FROM employees
+                WHERE id = :employee_id";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute(["employee_id" => $employee_id]);
@@ -86,14 +92,15 @@ protected mixed $db;
     public function modifyEmployee(Employee $employee): void
     {
         if (!$this->isUpdatePeselRegistered($employee)) {
-            $sql = "update employees
-            set 
-                first_name = :first_name,
-                last_name = :last_name, 
-                address = :address,
-                pesel = :pesel
-            where 
-                id = :employee_id";
+            $sql = 
+                "UPDATE employees
+                    SET 
+                        first_name = :first_name,
+                        last_name = :last_name, 
+                        address = :address,
+                        pesel = :pesel
+                            WHERE 
+                                id = :employee_id";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
@@ -104,15 +111,16 @@ protected mixed $db;
                 "employee_id" => $employee->getId(),
         ]); 
         } else {
-        header('Location: /employee/update');
+            header('Location: /employee/update');
         }
     }
 
     //check if pesel is in db for a new employee
     public function isNewPeselRegistered($employee): bool
     {
-        $sql = "SELECT * FROM employees
-            WHERE (pesel = :pesel)";
+        $sql = 
+            "SELECT * FROM employees
+                WHERE (pesel = :pesel)";
 
         $stmt = $this->db->prepare($sql);
         $pesel = $employee->getPesel();
@@ -130,8 +138,9 @@ protected mixed $db;
     //to allow modification
     public function isUpdatePeselRegistered($employee): bool
     {
-        $sql = "SELECT * FROM employees
-            WHERE ((pesel = :pesel) AND (id <> :id))";
+        $sql =
+            "SELECT * FROM employees
+                WHERE ((pesel = :pesel) AND (id <> :id))";
 
         $stmt = $this->db->prepare($sql);
         $pesel = $employee->getPesel();
